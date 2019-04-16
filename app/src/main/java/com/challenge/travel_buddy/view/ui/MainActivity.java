@@ -1,7 +1,9 @@
-package com.challenge.travel_buddy;
+package com.challenge.travel_buddy.view.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.challenge.travel_buddy.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.challenge.travel_buddy.view.ui;
+package com.challenge.travel_buddy.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">travel_buddy</string>
+    <string name="app_name">Travel Buddy</string>
+    <string name="title_activity_search">Travel Buddy</string>
 </resources>

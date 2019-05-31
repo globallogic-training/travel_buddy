@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.challenge.travel_buddy">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
+        android:name=".MVVMApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".view.MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".view.ui.StationListActivity"></activity>
+        <activity
+            android:name=".view.ui.SearchActivity"/>
+        <activity android:name=".view.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

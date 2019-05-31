@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Intent intent = new Intent(this,SearchActivity.class);
 
-        Button flightButton = (Button) findViewById(R.id.fight);
+        Button flightButton = (Button) findViewById(R.id.flight_btn);
         flightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

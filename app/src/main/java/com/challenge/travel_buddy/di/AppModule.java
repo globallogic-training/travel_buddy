@@ -12,20 +12,20 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-//@Module
+@Module
 public class AppModule {
 
-//    private Application mApplication;
-//
-//    public AppModule(Application mApplication) {
-//        this.mApplication = mApplication;
-//    }
+    private Application mApplication;
 
-//    @Provides
-//    @Singleton
-//    Application provideApplication() {
-//        return mApplication;
-//    }
+    public AppModule(Application mApplication) {
+        this.mApplication = mApplication;
+    }
+
+    @Provides
+    @Singleton
+    Application provideApplication() {
+        return mApplication;
+    }
 
 //    @Singleton
 //    @Provides

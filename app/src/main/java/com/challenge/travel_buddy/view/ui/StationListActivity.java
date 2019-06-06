@@ -14,6 +14,12 @@ import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
 
 
+import com.challenge.travel_buddy.di.AppComponent;
+import com.challenge.travel_buddy.di.AppModule;
+import com.challenge.travel_buddy.di.DaggerAppComponent;
+import com.challenge.travel_buddy.di.DaggerStationListActivityComponent;
+import com.challenge.travel_buddy.di.StationActivityScope;
+import com.challenge.travel_buddy.di.StationListActivityComponent;
 import com.challenge.travel_buddy.services.model.SearchStationModel;
 import com.challenge.travel_buddy.view.adapter.StationListAdapter;
 import com.challenge.travel_buddy.viewmodal.StationListViewModal;
@@ -39,7 +45,11 @@ public class StationListActivity extends AppCompatActivity {
 
 
 //        component.inject(this);
-        ((MVVMApplication) getApplication()).getAppComponent().inject(this);
+
+//        AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule(this.getApplication())).build();
+
+        StationListActivityComponent stationListActivityComponent = DaggerStationListActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
+        stationListActivityComponent.inject(this);
 //        StationListActivityComponent component = DaggerStationListActivityComponent.builder()
 //                .application(getApplication())
 //                .build();

@@ -11,6 +11,5 @@ public interface ViewModelSubComponent {
     interface Builder {
         ViewModelSubComponent build();
     }
-
     StationListViewModal stationListViewModal();
 }

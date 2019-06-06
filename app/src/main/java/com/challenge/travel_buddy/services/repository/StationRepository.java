@@ -5,6 +5,7 @@ package com.challenge.travel_buddy.services.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.challenge.travel_buddy.di.StationActivityScope;
 import com.challenge.travel_buddy.services.model.SearchStationModel;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@Singleton
+@StationActivityScope
 public class StationRepository {
     private StationService stationService;
 

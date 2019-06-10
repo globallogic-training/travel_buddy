@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.challenge.travel_buddy">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MVVMApplication"
         android:allowBackup="true"
@@ -10,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.StationListActivity"></activity>
-        <activity
-            android:name=".view.ui.SearchActivity"/>
-        <activity android:name=".view.ui.MainActivity">
+        <activity android:name=".train.trainsearch.view.ui.TrainSearch"></activity>
+        <activity android:name=".train.view.ui.StationListActivity" />
+        <activity android:name=".train.view.ui.SearchActivity" />
+        <activity android:name=".train.view.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

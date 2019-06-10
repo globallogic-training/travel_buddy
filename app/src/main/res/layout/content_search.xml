@@ -4,27 +4,154 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#95009688"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.ui.SearchActivity"
+    tools:context=".train.view.ui.SearchActivity"
     tools:showIn="@layout/activity_search">
 
-    <TextView
-        android:id="@+id/fromStation"
-        android:layout_width="158dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="32dp"
-        android:text="From  "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/source_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/toStation"
-        android:layout_width="159dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="56dp"
-        android:text="To"
+        <TextView
+            android:id="@+id/fromStation"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="From  "
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fromStationValue"
+            android:layout_width="158dp"
+            android:layout_height="43dp"
+            android:layout_weight="0.75"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:id="@+id/horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/top_border"
+        app:layout_constraintTop_toBottomOf="@+id/source_layout"
+        android:orientation="horizontal"></LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/destination_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromStation" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line">
+
+        <TextView
+            android:id="@+id/toStation"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:shadowColor="#00A52626"
+            android:text="To"
+            android:textAlignment="gravity"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/toStationValue"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.75"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:id="@+id/horizontal_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/top_border"
+        app:layout_constraintTop_toBottomOf="@+id/destination_layout"
+        android:orientation="horizontal"></LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/journey_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:onClick="showTimePickerDialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line2">
+
+        <TextView
+            android:id="@+id/journey_date"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:shadowColor="#00A52626"
+            android:text="Date"
+            android:textAlignment="gravity"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/journey_date_value"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.75"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:id="@+id/horizontal_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/top_border"
+        app:layout_constraintTop_toBottomOf="@+id/journey_date_layout"
+        android:orientation="horizontal"></LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/search_button_layout"
+        android:layout_width="409dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="84dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line3">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_btn"
+
+            android:layout_width="190dp"
+            android:layout_height="55dp"
+
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Search"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

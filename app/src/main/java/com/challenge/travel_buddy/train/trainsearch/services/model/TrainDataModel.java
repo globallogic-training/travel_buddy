@@ -3,6 +3,7 @@ package com.challenge.travel_buddy.train.trainsearch.services.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class TrainDataModel {
     @SerializedName("embarkId")
@@ -29,7 +30,7 @@ public class TrainDataModel {
     private String deboardStation;
     @SerializedName("deboard")
     private String deboard;
-//    private Map<String, Available_Status> available_seats;
+    private Map<String, Available_Status> available_seats;
 
 
    /* public TrainModel(String embarkId, String board, String boardStation, String departDate,
@@ -147,11 +148,11 @@ public class TrainDataModel {
         this.deboard = deboard;
     }
 
-//    public Map<String, Available_Status> getAvailable_seats() {
-//        return available_seats;
-//    }
-//
-//    public void setAvailable_seats(Map<String, Available_Status> available_seats) {
-//        this.available_seats = available_seats;
-//    }
+    public Map<String, Available_Status> getAvailable_seats() {
+        return available_seats;
+    }
+
+    public void setAvailable_seats(Map<String, Available_Status> available_seats) {
+        this.available_seats = available_seats;
+    }
 }

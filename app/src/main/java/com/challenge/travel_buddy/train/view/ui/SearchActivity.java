@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity {
     private TextView toStationValue;
     private static TextView journeyDateValue;
     private static String date;
+    private static String avail_date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,7 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra("from", fromStationValue.getText());
         intent.putExtra("to", toStationValue.getText());
         intent.putExtra("date", date);
+        intent.putExtra("avail_formated_date", avail_date);
         startActivity(intent);
     }
 
@@ -98,6 +100,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public static void setJourneyDate(DatePicker view, int year, int month, int day){
         date = year+"-"+(month+1)+"-"+day;
+        avail_date = day + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
         journeyDateValue.setText(day+"/"+(month+1)+"/"+year);
         System.out.println("New "+view+year+month+day );
     }

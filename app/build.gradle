@@ -59,4 +59,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
+    // Object Mapper
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
 }

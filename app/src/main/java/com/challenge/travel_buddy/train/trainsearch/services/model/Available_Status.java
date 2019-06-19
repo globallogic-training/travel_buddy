@@ -4,6 +4,7 @@ public class Available_Status {
     String p;
     String a;
     String t;
+    String date;
 
     public String getP() {
         return p;
@@ -27,5 +28,13 @@ public class Available_Status {
 
     public void setT(String t) {
         this.t = t;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

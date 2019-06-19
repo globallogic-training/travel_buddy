@@ -17,6 +17,10 @@ import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.train.trainsearch.view.ui.TrainSearch;
 import com.challenge.travel_buddy.train.view.ui.fragment.DatePickerFragment;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SearchActivity extends AppCompatActivity {
 
     private TextView fromStationValue;
@@ -99,8 +103,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public static void setJourneyDate(DatePicker view, int year, int month, int day){
+        Date date1;
         date = year+"-"+(month+1)+"-"+day;
-        avail_date = day + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
+        avail_date = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
         journeyDateValue.setText(day+"/"+(month+1)+"/"+year);
         System.out.println("New "+view+year+month+day );
     }

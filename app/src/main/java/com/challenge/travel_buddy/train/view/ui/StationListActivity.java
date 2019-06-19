@@ -56,6 +56,7 @@ public class StationListActivity extends AppCompatActivity {
         stationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         EditText editText = findViewById(R.id.station_edittext);
+        editText.requestFocus();
         if(isFrom)
             editText.setHint("Source");
         else

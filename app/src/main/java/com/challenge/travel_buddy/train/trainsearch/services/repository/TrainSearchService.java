@@ -27,4 +27,11 @@ public interface TrainSearchService {
             @Query("travelDate") String travelDate
     );
 
+    @Headers({"apikey:ixiweb!2$"})
+    @GET("action/content/trainstation?searchFor=getTrainByNameOrCode")
+    Call<ResponseBody> getTrainFromCode(
+            @Query("nameOrCode") String trainNumber
+    );
+
+
 }

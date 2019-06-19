@@ -13,6 +13,15 @@ public class TrainAvailabilityModel {
     @SerializedName("metadata")
     @Expose
     private MetaData metadata;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public MetaData getMetadata() {
         return metadata;

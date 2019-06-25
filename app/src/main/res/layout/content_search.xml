@@ -129,22 +129,24 @@
         android:layout_height="1dp"
         android:background="@drawable/top_border"
         app:layout_constraintTop_toBottomOf="@+id/journey_date_layout"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal">
+
+    </LinearLayout>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/search_button_layout"
         android:layout_width="409dp"
         android:layout_height="71dp"
         android:layout_marginTop="84dp"
+        android:orientation="horizontal"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontal_line3">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search_btn"
-
             android:layout_width="190dp"
             android:layout_height="55dp"
-
+            android:layout_gravity="center_vertical"
             android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"

@@ -199,7 +199,7 @@ public class TrainSearch extends AppCompatActivity {
                                         .observe(TrainSearch.this, new Observer<Train_Number_Search>() {
                                             @Override
                                             public void onChanged(Train_Number_Search train_number_search) {
-                                                best_SL_trainName.setText(train_number_search.getCn()!=null ? train_number_search.getCn() : train_number_search.getN());
+                                                best_SL_trainName.setText(train_number_search.getN()!=null ? train_number_search.getN() : train_number_search.getCn());
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         });

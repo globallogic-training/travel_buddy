@@ -26,30 +26,53 @@ public class SearchActivity extends AppCompatActivity {
     private TextView fromStationValue;
     private TextView toStationValue;
     private static TextView journeyDateValue;
+
+    private Button fromStationValue1;
+    private Button toStationValue1;
+    private static Button journeyDateValue1;
+
     private static String date;
     private static String avail_date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.search_form);
 
-        LinearLayoutCompat fromStation = (LinearLayoutCompat) findViewById(R.id.source_layout);
-        LinearLayoutCompat toStation = (LinearLayoutCompat) findViewById(R.id.destination_layout);
-        journeyDateValue = (TextView) findViewById(R.id.journey_date_value);
-        fromStation.setOnClickListener(new View.OnClickListener() {
+//        LinearLayoutCompat fromStation = (LinearLayoutCompat) findViewById(R.id.source_layout);
+//        LinearLayoutCompat toStation = (LinearLayoutCompat) findViewById(R.id.destination_layout);
+//        journeyDateValue = (TextView) findViewById(R.id.journey_date_value);
+
+        fromStationValue1 = (Button) findViewById(R.id.fromStationValue1);
+        toStationValue1 = (Button) findViewById(R.id.toStationValue1);
+        journeyDateValue1 = (Button) findViewById(R.id.journey_date_value1);
+
+//        fromStation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setStationSearchListner(true);
+//            }
+//        });
+//        toStation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setStationSearchListner(false);
+//            }
+//        });
+
+        fromStationValue1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setStationSearchListner(true);
             }
         });
-        toStation.setOnClickListener(new View.OnClickListener() {
+        toStationValue1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setStationSearchListner(false);
             }
         });
 
-        Button button = findViewById(R.id.search_btn);
+        Button button = findViewById(R.id.search_btn1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +94,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private void callActivityForTrainSearch() {
         Intent intent = new Intent(this, TrainSearch.class);
-        intent.putExtra("from", fromStationValue.getText());
-        intent.putExtra("to", toStationValue.getText());
+        intent.putExtra("from", fromStationValue1.getText());
+        intent.putExtra("to", toStationValue1.getText());
         intent.putExtra("date", date);
         intent.putExtra("avail_formated_date", avail_date);
         startActivity(intent);
@@ -92,9 +115,9 @@ public class SearchActivity extends AppCompatActivity {
         String fromStationText = data.getStringExtra("station");
         boolean isFrom = data.getBooleanExtra("isFrom", false);
         if(isFrom)
-            fromStationValue.setText(fromStationText);
+            fromStationValue1.setText(fromStationText);
         else
-            toStationValue.setText(fromStationText);
+            toStationValue1.setText(fromStationText);
 
     }
     public void showTimePickerDialog(View v) {
@@ -106,7 +129,7 @@ public class SearchActivity extends AppCompatActivity {
         Date date1;
         date = year+"-"+(month+1)+"-"+day;
         avail_date = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
-        journeyDateValue.setText(day+"/"+(month+1)+"/"+year);
+        journeyDateValue1.setText(day+"/"+(month+1)+"/"+year);
         System.out.println("New "+view+year+month+day );
     }
 

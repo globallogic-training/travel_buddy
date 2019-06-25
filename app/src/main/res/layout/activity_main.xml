@@ -18,6 +18,7 @@
            android:padding="20dip"
            android:layout_marginTop="20dip"
            android:layout_weight="1.0"/>
+
        <Button
            android:id="@+id/train_btn"
            android:text="Train"

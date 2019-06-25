@@ -16,16 +16,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Intent intent = new Intent(this,SearchActivity.class);
+        final Intent trainIntent = new Intent(this,SearchActivity.class);
 
-        Button flightButton = (Button) findViewById(R.id.flight_btn);
-        flightButton.setOnClickListener(new View.OnClickListener() {
+        Button trainButton = (Button) findViewById(R.id.train_btn);
+        trainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
+                startActivity(trainIntent);
             }
         });
 
+       /* Button busButton = (Button) findViewById(R.id.bus_btn);
+        busButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(busIntent);
+            }
+        });*/
 
 
 //        ActivityComponent component = DaggerActivityComponent.builder()

@@ -1,4 +1,4 @@
-package com.challenge.travel_buddy.train.view.ui;
+package com.challenge.travel_buddy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.challenge.travel_buddy.R;
+import com.challenge.travel_buddy.train.view.ui.SearchActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Intent trainIntent = new Intent(this,SearchActivity.class);
+
 
         Button trainButton = (Button) findViewById(R.id.train_btn);
         trainButton.setOnClickListener(new View.OnClickListener() {
@@ -45,5 +46,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //        car1.drive();
 //        car2.drive();
+
     }
 }

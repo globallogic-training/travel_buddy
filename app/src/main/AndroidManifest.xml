@@ -12,14 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".bus.view.ui.BusStationList"></activity>
+        <activity
+            android:name=".bus.view.ui.BusPointListActivity"
+            android:label="@string/title_activity_bus_point_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".bus.view.ui.SearchActivity" />
+        <activity android:name=".bus.view.ui.BusStationList" />
         <activity android:name=".bus.view.ui.SearchBusActivity" />
         <activity
             android:name=".train.trainsearch.view.ui.TrainSearch"
             android:screenOrientation="portrait" />
         <activity android:name=".train.view.ui.StationListActivity" />
         <activity android:name=".train.view.ui.SearchActivity" />
-        <activity android:name=".train.view.ui.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

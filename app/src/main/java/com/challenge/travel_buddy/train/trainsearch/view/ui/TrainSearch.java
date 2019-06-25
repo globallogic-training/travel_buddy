@@ -154,13 +154,13 @@ public class TrainSearch extends AppCompatActivity {
                         boolean is_best_3A_found = false;
                         boolean is_best_SL_found = false;
                         if(data.size() == 30) {
+                            Collections.sort(data, new Comparator<TrainAvailabilityModel>() {
+                                @Override
+                                public int compare(TrainAvailabilityModel o1, TrainAvailabilityModel o2) {
+                                    return getDateFromString(o1.getDate()).compareTo(getDateFromString(o2.getDate()));
+                                }
+                            });
                             for(int i=0; i< data.size(); i++){
-                                Collections.sort(data, new Comparator<TrainAvailabilityModel>() {
-                                    @Override
-                                    public int compare(TrainAvailabilityModel o1, TrainAvailabilityModel o2) {
-                                        return getDateFromString(o1.getDate()).compareTo(getDateFromString(o2.getDate()));
-                                    }
-                                });
                                 Map<String, Map<String, Available_Status>> x = data.get(i).getData();
                                 String trainDate = getDateFromTimeStamp(data.get(i).getDate());
                                 Set<String> keys = x.keySet();

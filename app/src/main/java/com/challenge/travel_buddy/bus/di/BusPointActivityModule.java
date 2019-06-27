@@ -18,7 +18,7 @@ public class BusPointActivityModule {
     @TrainSearchActivityScope
     @Provides
     TrainSearchService provideTrainSearchService() {
-        return new Retrofit.Builder().baseUrl("https://www.ixigo.com/")
+        return new Retrofit.Builder().baseUrl("https://www.redbus.in")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(TrainSearchService.class);

@@ -142,9 +142,9 @@ public class TrainSearchRepository {
     }
 
     public void getAvailData(String from, String to, String searchDate){
-        Runnable trainAvailThread = new Runnable() {
-            @Override
-            public void run() {
+//        Runnable trainAvailThread = new Runnable() {
+//            @Override
+//            public void run() {
                 trainSearchService.getAvailability(from, to, searchDate)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
@@ -180,12 +180,12 @@ public class TrainSearchRepository {
                                 Log.d("error", t.toString());
                             }
                         });
-            }
-
-        };
-
-        Thread t = new Thread(trainAvailThread);
-        t.run();
+//            }
+//
+//        };
+//
+//        Thread t = new Thread(trainAvailThread);
+//        t.run();
     }
 
 

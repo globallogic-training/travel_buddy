@@ -12,13 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".bus.view.ui.BusPointListActivity"
-            android:label="@string/title_activity_bus_point_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".bus.view.ui.BusPointListActivity"></activity>
+        <activity android:name=".bus.view.ui.SearchBusActivity" />
         <activity android:name=".bus.view.ui.SearchActivity" />
         <activity android:name=".bus.view.ui.BusStationList" />
-        <activity android:name=".bus.view.ui.SearchBusActivity" />
         <activity
             android:name=".train.trainsearch.view.ui.TrainSearch"
             android:screenOrientation="portrait" />

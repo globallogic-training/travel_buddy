@@ -5,7 +5,7 @@ import android.util.ArrayMap;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.challenge.travel_buddy.train.di.ViewModelSubComponent;
+import com.challenge.travel_buddy.bus.di.ViewModelSubComponent;
 
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -22,7 +22,7 @@ public class BusPointModelFactory implements ViewModelProvider.Factory {
         creators = new ArrayMap<>();
 
         // View models cannot be injected directly because they won't be bound to the owner's view model scope.
-//        creators.put(StationListViewModal.class, () -> viewModelSubComponent.stationListViewModal());
+        creators.put(BusPointViewModel.class, () -> viewModelSubComponent.busPointViewModel());
     }
 
     @Override

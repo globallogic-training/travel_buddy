@@ -38,26 +38,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_form);
 
-//        LinearLayoutCompat fromStation = (LinearLayoutCompat) findViewById(R.id.source_layout);
-//        LinearLayoutCompat toStation = (LinearLayoutCompat) findViewById(R.id.destination_layout);
-//        journeyDateValue = (TextView) findViewById(R.id.journey_date_value);
-
-        fromStationValue1 = (Button) findViewById(R.id.fromStationValue1);
+        fromStationValue1 = (Button) this.findViewById(R.id.fromStationValue1);
         toStationValue1 = (Button) findViewById(R.id.toStationValue1);
         journeyDateValue1 = (Button) findViewById(R.id.journey_date_value1);
-
-//        fromStation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setStationSearchListner(true);
-//            }
-//        });
-//        toStation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setStationSearchListner(false);
-//            }
-//        });
 
         fromStationValue1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,17 +62,7 @@ public class SearchActivity extends AppCompatActivity {
                 callActivityForTrainSearch();
             }
         });
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {search_btn
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
     }
 
     private void callActivityForTrainSearch() {

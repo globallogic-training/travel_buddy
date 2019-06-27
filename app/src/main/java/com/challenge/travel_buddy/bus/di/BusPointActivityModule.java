@@ -2,33 +2,31 @@ package com.challenge.travel_buddy.bus.di;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.challenge.travel_buddy.train.trainsearch.di.TrainSearchActivityScope;
-import com.challenge.travel_buddy.train.trainsearch.di.ViewModelSubComponent;
-import com.challenge.travel_buddy.train.trainsearch.services.repository.TrainSearchService;
-import com.challenge.travel_buddy.train.trainsearch.viewmodal.TrainSearchModelFactory;
+import com.challenge.travel_buddy.bus.services.repository.BusPointService;
+import com.challenge.travel_buddy.bus.viewmodal.BusPointModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module(subcomponents = com.challenge.travel_buddy.train.trainsearch.di.ViewModelSubComponent.class)
+@Module(subcomponents = ViewModelSubComponent.class)
 public class BusPointActivityModule {
 
-    @TrainSearchActivityScope
+    @BusPointActivityScope
     @Provides
-    TrainSearchService provideTrainSearchService() {
+    BusPointService provideBusPointService() {
         return new Retrofit.Builder().baseUrl("https://www.redbus.in")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(TrainSearchService.class);
+                .create(BusPointService.class);
     }
 
-    @TrainSearchActivityScope
+    @BusPointActivityScope
     @Provides
     ViewModelProvider.Factory provideViewModelFactory(
             ViewModelSubComponent.Builder viewModelSubComponent) {
 
-        return new TrainSearchModelFactory(viewModelSubComponent.build());
+        return new BusPointModelFactory(viewModelSubComponent.build());
     }
 }

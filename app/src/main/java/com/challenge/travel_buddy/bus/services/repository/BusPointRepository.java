@@ -8,8 +8,11 @@ import com.challenge.travel_buddy.train.services.model.SearchStationModel;
 import com.challenge.travel_buddy.train.trainsearch.services.model.TrainAvailabilityModel;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +41,8 @@ public class BusPointRepository { private BusPointService busPointService;
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.body() != null && response.code() == 200) {
                             String res = null;
+                            Gson gson = new Gson();
+                            Gson gson1 = new Gson();
                             try {
                                 res = response.body().string();
 
@@ -46,6 +51,12 @@ public class BusPointRepository { private BusPointService busPointService;
                             }
                             try {
                                 JSONObject jsonObject = new JSONObject(res);
+                                JSONObject responseObj = (JSONObject) jsonObject.get("response");
+                                JSONArray docsArray  = (JSONArray) responseObj.get("docs");
+//                                data.setValue((List<BusPoint>) docsArray);
+//                                gson.fromJson(docsArray);
+                                System.out.println("Kismi Bar");
+
 //                                TrainAvailabilityModel trainAvailabilityModel =  new ObjectMapper().readValue(String.valueOf(jsonObject), TrainAvailabilityModel.class);
 //                                trainAvailabilityModel.setDate(searchDate);
 //                                data.add(trainAvailabilityModel);

@@ -1,5 +1,7 @@
 package com.challenge.travel_buddy.bus.di;
 
+import com.challenge.travel_buddy.bus.viewmodal.BusPointViewModel;
+
 import dagger.Subcomponent;
 
 @Subcomponent
@@ -8,6 +10,6 @@ public interface ViewModelSubComponent {
     interface Builder {
         ViewModelSubComponent build();
     }
-//    TrainListViewModel trainListViewModal();
+    BusPointViewModel busPointViewModel();
 
 }

@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.challenge.travel_buddy.bus.view.ui.SearchBusActivity;
 import com.challenge.travel_buddy.train.view.ui.SearchActivity;
 
 
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Intent trainIntent = new Intent(this,SearchActivity.class);
-
+        final Intent busIntent = new Intent(this, SearchBusActivity.class);
 
         Button trainButton = (Button) findViewById(R.id.train_btn);
         trainButton.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button busButton = (Button) findViewById(R.id.bus_btn);
+        busButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(busIntent);
+            }
+        });
        /* Button busButton = (Button) findViewById(R.id.bus_btn);
         busButton.setOnClickListener(new View.OnClickListener() {
             @Override

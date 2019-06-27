@@ -31,7 +31,7 @@ public class BusPointViewModel extends AndroidViewModel {
         this.busPointRepository = busPointRepository;
     }
 
-    public LiveData<List<BusPoint>>searchStation(String val){
+    public LiveData<List<BusPoint>>searchBusPoint(String val){
         searchStationModelLiveData = busPointRepository.getBusPoint(val);
         return searchStationModelLiveData;
     }

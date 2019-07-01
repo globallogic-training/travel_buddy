@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".bus.view.ui.BusPointListActivity"></activity>
+        <activity android:name=".flight.view.ui.AirportListActivity"></activity>
+        <activity android:name=".flight.view.ui.SearchAirportActivity" />
+        <activity android:name=".bus.view.ui.BusPointListActivity" />
         <activity android:name=".bus.view.ui.SearchBusActivity" />
         <activity android:name=".bus.view.ui.SearchActivity" />
         <activity android:name=".bus.view.ui.BusStationList" />

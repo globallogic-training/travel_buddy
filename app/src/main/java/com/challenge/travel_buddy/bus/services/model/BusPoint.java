@@ -19,7 +19,7 @@ public class BusPoint {
     private Integer rank;
     @SerializedName("id")
     @Expose
-    private Object id;
+    private Object station;
     @SerializedName("parentLocation")
     @Expose
     private Integer parentLocation;
@@ -59,12 +59,12 @@ public class BusPoint {
         this.rank = rank;
     }
 
-    public Object getId() {
-        return id;
+    public Object getStation() {
+        return station;
     }
 
-    public void setId(Object id) {
-        this.id = id;
+    public void setStation(Object station) {
+        this.station = station;
     }
 
     public Integer getParentLocation() {

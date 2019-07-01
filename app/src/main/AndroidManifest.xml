@@ -14,10 +14,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".flight.view.ui.AirportListActivity"></activity>
         <activity android:name=".flight.view.ui.SearchAirportActivity" />
+        <activity android:name=".bus.view.ui.BusResultActivity"></activity>
         <activity android:name=".bus.view.ui.BusPointListActivity" />
         <activity android:name=".bus.view.ui.SearchBusActivity" />
-        <activity android:name=".bus.view.ui.SearchActivity" />
-        <activity android:name=".bus.view.ui.BusStationList" />
         <activity
             android:name=".train.trainsearch.view.ui.TrainSearch"
             android:screenOrientation="portrait" />

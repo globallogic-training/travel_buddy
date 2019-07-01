@@ -4,9 +4,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.Switch;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.challenge.travel_buddy.bus.view.ui.SearchBusActivity;
 import com.challenge.travel_buddy.train.view.ui.SearchActivity;
 
 import java.util.Calendar;
@@ -27,7 +29,11 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        SearchActivity.setJourneyDate(view,year,month,day);
-        // Do something with the date chosen by the user
+        if(getActivity() instanceof SearchBusActivity){
+            SearchBusActivity.setJourneyDate(view,year,month,day);
+        }
+        if(getActivity() instanceof SearchActivity){
+            SearchActivity.setJourneyDate(view,year,month,day);
+        }
     }
 }

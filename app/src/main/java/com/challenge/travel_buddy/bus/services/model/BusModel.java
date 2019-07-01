@@ -3,7 +3,7 @@ package com.challenge.travel_buddy.bus.services.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BusPoint {
+public class BusModel {
 
     @SerializedName("ID")
     @Expose
@@ -17,9 +17,6 @@ public class BusPoint {
     @SerializedName("rank")
     @Expose
     private Integer rank;
-    @SerializedName("id")
-    @Expose
-    private Object station;
     @SerializedName("parentLocation")
     @Expose
     private Integer parentLocation;
@@ -57,14 +54,6 @@ public class BusPoint {
 
     public void setRank(Integer rank) {
         this.rank = rank;
-    }
-
-    public Object getStation() {
-        return station;
-    }
-
-    public void setStation(Object station) {
-        this.station = station;
     }
 
     public Integer getParentLocation() {

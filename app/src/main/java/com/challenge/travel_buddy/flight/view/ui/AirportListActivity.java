@@ -17,7 +17,6 @@ import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.bus.di.BusPointActivityComponent;
 import com.challenge.travel_buddy.bus.di.DaggerBusPointActivityComponent;
-import com.challenge.travel_buddy.bus.services.model.BusPoint;
 import com.challenge.travel_buddy.bus.viewmodal.BusPointViewModel;
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;

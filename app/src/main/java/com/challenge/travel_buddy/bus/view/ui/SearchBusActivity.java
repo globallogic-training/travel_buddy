@@ -30,6 +30,8 @@ public class SearchBusActivity extends AppCompatActivity {
 
     private static String date;
     private static String avail_date;
+    private String fromStationId;
+    private String toStationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +71,13 @@ public class SearchBusActivity extends AppCompatActivity {
     }
 
     private void callActivityForBusSearch() {
-        Intent intent = new Intent(this, TrainSearch.class);
+        Intent intent = new Intent(this, BusResultActivity.class);
         intent.putExtra("from", fromStationValue1.getText());
         intent.putExtra("to", toStationValue1.getText());
         intent.putExtra("date", date);
         intent.putExtra("avail_formated_date", avail_date);
+        intent.putExtra("fromStationId", fromStationId);
+        intent.putExtra("toStationId", toStationId);
         startActivity(intent);
     }
 
@@ -84,10 +88,14 @@ public class SearchBusActivity extends AppCompatActivity {
         toStationValue = (TextView) findViewById(R.id.toStationValue);
         String fromStationText = data.getStringExtra("station");
         boolean isFrom = data.getBooleanExtra("isFrom", false);
-        if(isFrom)
+        if(isFrom){
             fromStationValue1.setText(fromStationText);
-        else
+            fromStationId = data.getStringExtra("stationId");
+        }
+        else{
             toStationValue1.setText(fromStationText);
+            toStationId = data.getStringExtra("stationId");
+        }
 
     }
 

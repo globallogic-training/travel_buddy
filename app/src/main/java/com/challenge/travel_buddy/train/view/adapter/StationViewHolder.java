@@ -16,6 +16,8 @@ public class StationViewHolder extends RecyclerView.ViewHolder implements View.O
     public TextView stationName;
     public Context mContext;
     private boolean mIsFrom;
+    public String stationId;
+
     public StationViewHolder(@NonNull View itemView, Context context, boolean isFrom) {
         super(itemView);
         stationName = itemView.findViewById(R.id.station_name);
@@ -29,6 +31,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder implements View.O
         Intent intent = new Intent(mContext,SearchActivity.class);
         intent.putExtra("station", ((TextView) v.findViewById(R.id.station_name)).getText()+"");
         intent.putExtra("isFrom", mIsFrom);
+        intent.putExtra("stationId", stationId);
 //        mContext.startActivity(intent);
         ((Activity)mContext).setResult(Activity.RESULT_OK, intent);
         ((Activity)mContext).finish();

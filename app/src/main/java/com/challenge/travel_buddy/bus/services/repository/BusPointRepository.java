@@ -1,11 +1,15 @@
 package com.challenge.travel_buddy.bus.services.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.challenge.travel_buddy.bus.services.model.BusModel;
 import com.challenge.travel_buddy.bus.services.model.BusStationObj;
 import com.challenge.travel_buddy.bus.services.model.BusStationResp;
+import com.challenge.travel_buddy.bus.services.model.busresponse.BusSearchResponse;
+import com.challenge.travel_buddy.bus.services.model.busresponse.Inv;
 import com.challenge.travel_buddy.train.trainsearch.services.model.TrainAvailabilityModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,7 +24,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -58,4 +64,28 @@ public class BusPointRepository {
                 });
         return data;
     }
+
+    public LiveData<List<Inv>> getAllBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
+        final MutableLiveData<List<Inv>> data = new MutableLiveData<>();
+        busPointService.getAllBuses("application/json",fromStationId,toStationId,from,to,DOJ)
+                .enqueue(new Callback<BusSearchResponse>() {
+                    @Override
+                    public void onResponse(Call<BusSearchResponse> call, Response<BusSearchResponse> response) {
+                        if(response.body() != null && response.body().getInv().size() > 0){
+                            data.setValue(response.body().getInv());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BusSearchResponse> call, Throwable t) {
+                        Log.d("rr", t.getMessage());
+                    }
+                });
+        return data;
+    }
+
+    public LiveData<Map<Date, List<Inv>>> getFutureBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
+        
+    }
 }
+

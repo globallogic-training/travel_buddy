@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.challenge.travel_buddy.bus.services.model.BusPoint;
 import com.challenge.travel_buddy.bus.services.repository.BusPointRepository;
 import com.challenge.travel_buddy.flight.services.model.AirportModel;
 import com.challenge.travel_buddy.flight.services.repository.AirportRepository;

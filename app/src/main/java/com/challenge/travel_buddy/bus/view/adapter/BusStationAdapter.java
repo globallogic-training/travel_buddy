@@ -37,6 +37,7 @@ public class BusStationAdapter extends RecyclerView.Adapter<StationViewHolder> {
     public void onBindViewHolder(@NonNull StationViewHolder holder, int position) {
         BusModel model = mStations.get(position);
         holder.stationName.setText(model.getName());
+        holder.stationId = model.getID().toString();
     }
 
     @Override

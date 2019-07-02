@@ -23,6 +23,7 @@ public class BusPointModelFactory implements ViewModelProvider.Factory {
 
         // View models cannot be injected directly because they won't be bound to the owner's view model scope.
         creators.put(BusPointViewModel.class, () -> viewModelSubComponent.busPointViewModel());
+        creators.put(BusListViewModel.class, () -> viewModelSubComponent.busListViewModel());
     }
 
     @Override

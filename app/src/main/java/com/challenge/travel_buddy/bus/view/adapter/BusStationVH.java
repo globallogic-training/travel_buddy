@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.bus.view.ui.SearchBusActivity;
-import com.challenge.travel_buddy.train.view.ui.SearchActivity;
 
 public class BusStationVH extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView stationName;

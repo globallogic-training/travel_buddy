@@ -1,6 +1,7 @@
 package com.challenge.travel_buddy.bus.view.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -28,8 +29,11 @@ import com.challenge.travel_buddy.train.trainsearch.di.TrainSearchActivityCompon
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -44,6 +48,7 @@ public class BusResultActivity extends AppCompatActivity {
     private BusListAdapter adapter;
     private RecyclerView busListRecycler;
     private ProgressBar bus_list_progressBar;
+    private Inv invObj;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -80,6 +85,13 @@ public class BusResultActivity extends AppCompatActivity {
                     }
                 });
 
+        viewModel.getFutureBuses(fromStation,toStation,fromStationId,toStationId,travelDate)
+                .observe(this, new Observer<Map<Date, List<Inv>>>() {
+                    @Override
+                    public void onChanged(Map<Date, List<Inv>> superBusList) {
+                        getOptimizedResult(superBusList);
+                    }
+                });
     }
 
     public String formatDate(String date){
@@ -89,10 +101,39 @@ public class BusResultActivity extends AppCompatActivity {
         try {
             Date date1 = formatter.parse(date);
             formatedDate = formatter1.format(date1);
-            Log.d("formatted date", formatedDate);
+            Log.d("formated date", formatedDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return formatedDate;
     }
+
+    void getOptimizedResult(Map<Date, List<Inv>> superBusList){
+        List<Inv> invObjList = new ArrayList<>();
+        Set<Date> keys = superBusList.keySet();
+        invObj = superBusList.get(keys.iterator().next());
+        for(Date date : superBusList.keySet()){
+
+            List<Inv> buses = superBusList.get(date);
+            Inv bestBus = getBestBus(buses);
+
+            if(bestBus != null && invObj != null ){
+                invObj = ( invObj.getMinfr() < bestBus.getMinfr() ) ? invObj : bestBus;
+            }
+        }
+
+        System.out.println("new");
+    }
+
+    private Inv getBestBus(List<Inv> buses) {
+        Inv invObjDay = buses.get(0) ;
+        for(Inv bus : buses){
+            if(invObjDay != null && bus != null){
+              invObjDay = invObjDay.getMinfr() < bus.getMinfr() ? invObjDay : bus;
+            }
+        }
+        return invObjDay;
+    }
+
+
 }

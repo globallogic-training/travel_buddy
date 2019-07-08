@@ -6,7 +6,6 @@ import com.challenge.travel_buddy.train.view.ui.StationListActivity;
 
 import dagger.Component;
 
-//@Singleton
 @StationActivityScope
 @Component( dependencies = AppComponent.class, modules = {StationListActivityModule.class})
 

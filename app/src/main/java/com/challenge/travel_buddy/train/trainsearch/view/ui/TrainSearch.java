@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,15 +26,14 @@ import com.challenge.travel_buddy.train.trainsearch.services.model.TrainAvailabi
 import com.challenge.travel_buddy.train.trainsearch.services.model.TrainDataModel;
 import com.challenge.travel_buddy.train.trainsearch.services.model.Train_Number_Search;
 import com.challenge.travel_buddy.train.trainsearch.view.adapter.TrainListAdapter;
+import com.challenge.travel_buddy.train.trainsearch.view.ui.helper.Helper;
 import com.challenge.travel_buddy.train.trainsearch.viewmodal.TrainListViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,7 +54,6 @@ public class TrainSearch extends AppCompatActivity {
     private RecyclerView trainListRecycler;
     private Boolean isSeatsAvilable;
     private Boolean isTrainsAvailable;
-    ArrayList<TrainDataModel> serchedTrainList = new ArrayList<>();
     private Map <String, Map<String, Available_Status>> bestSL;
     private Map<String, Available_Status> bestWithClassSL;
     private Map <String, Map<String, Available_Status>> best3A;
@@ -76,15 +75,17 @@ public class TrainSearch extends AppCompatActivity {
     public TextView best_3A_availibility;
     public TextView best_SL_date;
     public TextView best_3A_date;
-    public ProgressBar progressBar;
-    public ProgressBar train_list_progressBar;
+    public LinearLayout progressBar;
+    public LinearLayout trainListProgressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_search);
-        
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         fromStationCode = intent.getStringExtra("from");
         toStationCode = intent.getStringExtra("to");
@@ -110,7 +111,7 @@ public class TrainSearch extends AppCompatActivity {
         best_SL_date = findViewById(R.id.best_SL_date);
         best_3A_date = findViewById(R.id.best_3A_date);
         progressBar = findViewById(R.id.best_avail_progress);
-        train_list_progressBar = findViewById(R.id.train_list_progressBar);
+        trainListProgressBar = findViewById(R.id.trainListProgress);
 
         best_SL_lbl = findViewById(R.id.best_SL_lbl);
         best_SL_date_lbl = findViewById(R.id.best_SL_date_lbl);
@@ -119,7 +120,7 @@ public class TrainSearch extends AppCompatActivity {
 
 
         progressBar.setVisibility(View.VISIBLE);
-        train_list_progressBar.setVisibility(View.VISIBLE);
+        trainListProgressBar.setVisibility(View.VISIBLE);
 
         TrainSearchActivityComponent trainSearchActivityComponent = DaggerTrainSearchActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
         trainSearchActivityComponent.inject(this);
@@ -127,7 +128,7 @@ public class TrainSearch extends AppCompatActivity {
         final TrainListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(TrainListViewModel.class);
 
-        viewModel.getTrainList(getStationCode(fromStationCode), getStationCode(toStationCode), travelDate).observe(this, new Observer<Train>() {
+        viewModel.getTrainList(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), travelDate).observe(this, new Observer<Train>() {
             @Override
             public void onChanged(@Nullable Train train) {
                 fetchedTrains = train;
@@ -136,7 +137,7 @@ public class TrainSearch extends AppCompatActivity {
             }
         });
 
-        viewModel.getAvailability(getStationCode(fromStationCode), getStationCode(toStationCode), availDate)
+        viewModel.getAvailability(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), availDate)
                 .observe(this, new Observer<Map <String, Map<String, Available_Status>>>() {
                     @Override
                     public void onChanged(@Nullable Map <String, Map<String, Available_Status>> availabilityModels) {
@@ -146,7 +147,7 @@ public class TrainSearch extends AppCompatActivity {
                     }
                 });
 
-        viewModel.getBestTrainInMonth(getStationCode(fromStationCode), getStationCode(toStationCode), availDate)
+        viewModel.getBestTrainInMonth(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), availDate)
 
                 .observe(this, new Observer<List<TrainAvailabilityModel>>() {
                     @Override
@@ -157,12 +158,28 @@ public class TrainSearch extends AppCompatActivity {
                             Collections.sort(data, new Comparator<TrainAvailabilityModel>() {
                                 @Override
                                 public int compare(TrainAvailabilityModel o1, TrainAvailabilityModel o2) {
-                                    return getDateFromString(o1.getDate()).compareTo(getDateFromString(o2.getDate()));
+
+                                    if (o1 == null) {
+                                        return (o2 == null) ? 0 : -1;
+                                    }
+                                    if (o2 == null) {
+                                        return 1;
+                                    }
+
+                                    return Helper.getDateFromString(o1.getDate()).compareTo(Helper.getDateFromString(o2.getDate()));
                                 }
                             });
+
+                            Iterator<TrainAvailabilityModel> itr = data.iterator();
+                            while(itr.hasNext()){
+                                TrainAvailabilityModel trainmaodel = itr.next();
+
+                                if(trainmaodel == null)
+                                    itr.remove();
+                            }
                             for(int i=0; i< data.size(); i++){
                                 Map<String, Map<String, Available_Status>> x = data.get(i).getData();
-                                String trainDate = getDateFromTimeStamp(data.get(i).getDate());
+                                String trainDate = Helper.getDateFromTimeStamp(data.get(i).getDate());
                                 Set<String> keys = x.keySet();
                                 for(String key: keys){
                                     Map<String, Available_Status> avail = x.get(key);
@@ -203,6 +220,8 @@ public class TrainSearch extends AppCompatActivity {
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         });
+                            }else{
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             if(best3A.size() > 0){
@@ -222,6 +241,8 @@ public class TrainSearch extends AppCompatActivity {
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         });
+                            }else{
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -232,79 +253,42 @@ public class TrainSearch extends AppCompatActivity {
 
         System.out.println("In Activity");
     }
-    private String getStationCode(String stationName){
-        String stationCode = stationName.replaceAll("\\(|\\)","");
-        String [] words = stationCode.split("\\s");
-        if(words[1].contains("-")){
-            if(stationName.contains("- All stations")){
-                return words[0]+"-All";
-            }else if(stationName.contains("- All")){
-                return words[0]+"-All";
-            }
-        }else if(words.length > 2 && words[2].contains("-")){
-            if(stationName.contains("- All stations")){
-                return words[0]+" "+words[1]+"-All";
-            }else if(stationName.contains("- All")){
-                return words[0]+" "+words[1]+"-All";
-            }
-        }else if(stationName.contains("(")) {
-            return words[words.length - 1];
-        }
 
-//        String regex = "\\s*\\bstations\\b\\s*";
-//        String content = stationName.replaceAll(regex, "");
-//        String regex1 = "\\s*\\b-\\b\\s*";
-//        String content1 = content.replaceAll(regex1, "-");
-        return stationCode;
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void setBothData() {
-        if(isSeatsAvilable && isTrainsAvailable){
+        ArrayList<TrainDataModel> serchedTrainList = new ArrayList<>();
+        if(isSeatsAvilable && isTrainsAvailable && fetchedTrains != null){
+
             for(TrainDataModel trainModel: fetchedTrains.getData().getTrainsBetweenStations()){
                 String trainNumber = trainModel.getAttributes().getNumber();
-                Map<String, Available_Status> avail = availableSeats.get(trainNumber);
-                if(avail != null){
-                    trainModel.setAvailable_seats(avail);
+                if(availableSeats != null) {
+                    Map<String, Available_Status> avail = availableSeats.get(trainNumber);
+                    if (avail != null) {
+                        trainModel.setAvailable_seats(avail);
+                        serchedTrainList.add(trainModel);
+                    } else {
+                        serchedTrainList.add(trainModel);
+                    }
+                }else{
                     serchedTrainList.add(trainModel);
                 }
+
             }
+
             fetchedTrains.getData().setTrainsBetweenStations(serchedTrainList);
             adapter = new TrainListAdapter(TrainSearch.this, fetchedTrains.getData().getTrainsBetweenStations());
             trainListRecycler.setAdapter(adapter);
             isSeatsAvilable = false;
             isTrainsAvailable = false;
-            train_list_progressBar.setVisibility(View.GONE);
+            trainListProgressBar.setVisibility(View.GONE);
+        }else if( fetchedTrains == null) {
+            trainListProgressBar.setVisibility(View.GONE);
         }
     }
 
-    /* Function to convert date string to given date string format */
-    public String getDateFromTimeStamp(String timeStamp){
-        Date orignalDate = null;
-        String strigParsedDate = "";
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-        SimpleDateFormat slashFormatter = new SimpleDateFormat("dd-MMMM-yyy");
-        try {
-            orignalDate = formatter.parse(timeStamp);
-            System.out.println(orignalDate);
-            strigParsedDate = slashFormatter.format(orignalDate);
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-        }
-        return strigParsedDate;
-    }
-
-    /* Function to convert string to given date format */
-    public Date getDateFromString(String date){
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-        Date orignalDate = null;
-        try{
-
-            orignalDate =  formatter.parse(date);
-        }catch (Exception e){
-            System.out.println(e.toString());
-        }
-
-        return orignalDate;
-    }
 }

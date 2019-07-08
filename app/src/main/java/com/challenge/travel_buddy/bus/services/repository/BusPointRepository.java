@@ -58,7 +58,7 @@ public class BusPointRepository {
         return data;
     }
 
-    public LiveData<List<Inv>> getAllBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
+    public MutableLiveData<List<Inv>> getAllBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
         final MutableLiveData<List<Inv>> data = new MutableLiveData<>();
         busPointService.getAllBuses("application/json",fromStationId,toStationId,from,to,DOJ)
                 .enqueue(new Callback<BusSearchResponse>() {
@@ -78,7 +78,6 @@ public class BusPointRepository {
     }
 
     public LiveData<Map<Date, List<Inv>>> getFutureBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
-
 
         String threadDate = DOJ;
         Date orignalDate = null;

@@ -2,15 +2,19 @@ package com.challenge.travel_buddy.bus.view.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.challenge.travel_buddy.MainActivity;
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.train.trainsearch.view.ui.TrainSearch;
 import com.challenge.travel_buddy.train.view.ui.StationListActivity;
@@ -38,6 +42,7 @@ public class SearchBusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_form);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fromStationValue1 = (Button) findViewById(R.id.fromStationValue1);
         toStationValue1 = (Button) findViewById(R.id.toStationValue1);
@@ -71,36 +76,50 @@ public class SearchBusActivity extends AppCompatActivity {
     }
 
     private void callActivityForBusSearch() {
-        Intent intent = new Intent(this, BusResultActivity.class);
-        intent.putExtra("from", fromStationValue1.getText());
-        intent.putExtra("to", toStationValue1.getText());
-        intent.putExtra("date", date);
-        intent.putExtra("avail_formated_date", avail_date);
-        intent.putExtra("fromStationId", fromStationId);
-        intent.putExtra("toStationId", toStationId);
-        startActivity(intent);
+        if(!fromStationValue1.getText().equals("select from") && !toStationValue1.getText().equals("Select to") && !journeyDateValue1.getText().equals("Select date")){
+            Intent intent = new Intent(this, BusResultActivity.class);
+            intent.putExtra("from", fromStationValue1.getText());
+            intent.putExtra("to", toStationValue1.getText());
+            intent.putExtra("date", date);
+            intent.putExtra("avail_formated_date", avail_date);
+            intent.putExtra("fromStationId", fromStationId);
+            intent.putExtra("toStationId", toStationId);
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(this, "Please provide input.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        fromStationValue = (TextView) findViewById(R.id.fromStationValue);
-        toStationValue = (TextView) findViewById(R.id.toStationValue);
-        String fromStationText = data.getStringExtra("station");
-        boolean isFrom = data.getBooleanExtra("isFrom", false);
-        if(isFrom){
-            fromStationValue1.setText(fromStationText);
-            fromStationId = data.getStringExtra("stationId");
-        }
-        else{
-            toStationValue1.setText(fromStationText);
-            toStationId = data.getStringExtra("stationId");
+        if(data != null){
+            super.onActivityResult(requestCode, resultCode, data);
+//            fromStationValue = (TextView) findViewById(R.id.fromStationValue);
+//            toStationValue = (TextView) findViewById(R.id.toStationValue);
+            String fromStationText = data.getStringExtra("station");
+            boolean isFrom = data.getBooleanExtra("isFrom", false);
+            if(isFrom){
+                fromStationValue1.setText(fromStationText);
+                fromStationId = data.getStringExtra("stationId");
+            }
+            else{
+                toStationValue1.setText(fromStationText);
+                toStationId = data.getStringExtra("stationId");
+            }
         }
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
+
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 

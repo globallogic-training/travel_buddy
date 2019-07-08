@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Utils {
 
-    public String format_arr_dep_time(String time){
+    public static String formatArrDepTime(String time){
         SimpleDateFormat stringTimetoDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         SimpleDateFormat dateToString = new SimpleDateFormat("hh:mm");
         String formattedTime = "";
@@ -21,7 +21,20 @@ public class Utils {
         return formattedTime;
     }
 
-    public String converMinsToHrs(Integer mins){
+    public static String formatArrDepTimeWithDate(String time){
+        SimpleDateFormat stringTimetoDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateToString = new SimpleDateFormat("dd MMM yyyy hh:mm");
+        String formattedTime = "";
+        try {
+            Date date = stringTimetoDate.parse(time);
+            formattedTime = dateToString.format(date);
+        }catch (ParseException e){
+            Log.d("date parse exception", e.getMessage());
+        }
+        return formattedTime;
+    }
+
+    public static String converMinsToHrs(Integer mins){
         Integer hrs = (mins/60);
         Integer minutes = (mins%60);
         return ""+ hrs + "h " + minutes + "m";

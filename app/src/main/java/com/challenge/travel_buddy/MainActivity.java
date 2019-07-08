@@ -45,17 +45,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        ActivityComponent component = DaggerActivityComponent.builder()
-//                .horsePower(120)
-//                .engineCapacity(1400)
-//                .appComponent(((ExampleApp) getApplication()).getAppComponent())
-//                .build();
-
-//        component.inject(this);
-//
-//        car1.drive();
-//        car2.drive();
-
     }
 }

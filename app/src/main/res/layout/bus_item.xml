@@ -21,7 +21,20 @@
             android:layout_marginStart="10dp"
             android:text="N/A"
             android:paddingBottom="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/busName"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_marginEnd="10dp"
+            android:text="N/A"
+            android:id="@+id/busRating"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/busType"
@@ -31,6 +44,8 @@
             android:layout_marginEnd="10dp"
             android:paddingBottom="5dp"
             android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="N/A"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             />

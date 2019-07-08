@@ -2,7 +2,6 @@ package com.challenge.travel_buddy.train.viewmodal;
 
 import android.app.Application;
 
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -20,9 +19,6 @@ public class StationListViewModal extends AndroidViewModel {
 
     private StationRepository stationRepository;
     private LiveData<List<SearchStationModel>> searchStationModelLiveData;
-//    private final MutableLiveData<String> projectID;
-
-//    public ObservableField<> project = new ObservableField<>();
 
     @Inject
     public StationListViewModal(@NonNull StationRepository stationRepository, @NonNull Application application) {

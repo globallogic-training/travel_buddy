@@ -17,16 +17,40 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
+    <TextView
+        android:id="@+id/noResultFound"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/train_list_progressBar"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:text="No Result"
+        android:textFontWeight="20dp"
+        android:textColor="@color/colorAccent"
+        android:visibility="visible" />
+    <LinearLayout
+        android:id="@+id/trainListProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:visibility="visible" >
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trainListProgressBar"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Please wait.\nWhile finding your trains "
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/linearLayout"
@@ -42,15 +66,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trainListRV"
         android:padding="3dp">
-
-        <ProgressBar
+        <LinearLayout
             android:id="@+id/best_avail_progress"
-            style="?android:attr/preferenceInformationStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:indeterminateTint="#ffffff"
-            android:layout_centerInParent="true" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
 
+            <ProgressBar
+                android:id="@+id/best_avail_progress_bar"
+                style="?android:attr/preferenceInformationStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:indeterminateTint="#ffffff"
+                android:maxWidth="30dp"
+                android:minWidth="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Fetching availability for upcoming days."
+                android:textColor="@android:color/white" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -57,18 +57,7 @@ public class AirportListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
 
-
-
-//        final AirportViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
-//                .get(AirportViewModel.class);
-//
-//        viewModel.searchAirport("ran").observe(this, new Observer<List<BusPoint>>() {
-//            @Override
-//            public void onChanged(List<BusPoint> busPoints) {
-//
-//            }
-//        });
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -126,5 +115,11 @@ public class AirportListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

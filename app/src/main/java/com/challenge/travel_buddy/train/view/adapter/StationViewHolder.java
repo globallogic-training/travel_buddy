@@ -32,7 +32,6 @@ public class StationViewHolder extends RecyclerView.ViewHolder implements View.O
         intent.putExtra("station", ((TextView) v.findViewById(R.id.station_name)).getText()+"");
         intent.putExtra("isFrom", mIsFrom);
         intent.putExtra("stationId", stationId);
-//        mContext.startActivity(intent);
         ((Activity)mContext).setResult(Activity.RESULT_OK, intent);
         ((Activity)mContext).finish();
     }

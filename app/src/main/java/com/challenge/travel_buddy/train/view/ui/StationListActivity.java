@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,18 +29,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class StationListActivity extends AppCompatActivity {
-    StationListAdapter adapter;
-    RecyclerView stationRecyclerView;
-    boolean isFrom;
-    protected StationListActivity instance = this;
 
+    private StationListAdapter adapter;
+    private RecyclerView stationRecyclerView;
+    private boolean isFrom;
+    private StationListActivity instance = this;
+    private EditText stationSearchEditText;
+    private StationListViewModal viewModel ;
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    private ViewModelProvider.Factory viewModelFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -53,33 +58,33 @@ public class StationListActivity extends AppCompatActivity {
         }
 
         stationRecyclerView = (RecyclerView) findViewById(R.id.stationRecylerView);
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        stationRecyclerView.addItemDecoration(decoration);
         stationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        EditText editText = findViewById(R.id.station_edittext);
-        editText.requestFocus();
+        stationSearchEditText = findViewById(R.id.station_edittext);
+        stationSearchEditText.requestFocus();
         if(isFrom)
-            editText.setHint("Source");
+            stationSearchEditText.setHint("Source");
         else
-            editText.setHint("Destination");
-//        AppComponent component = DaggerAppComponent.builder().build();
+            stationSearchEditText.setHint("Destination");
 
-
-//        component.inject(this);
-
-//        AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule(this.getApplication())).build();
+        //AppComponent component = DaggerAppComponent.builder().build();
+        //component.inject(this);
+        //AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule(this.getApplication())).build();
 
         StationListActivityComponent stationListActivityComponent = DaggerStationListActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
         stationListActivityComponent.inject(this);
-//        StationListActivityComponent component = DaggerStationListActivityComponent.builder()
-//                .application(getApplication())
-//                .build();
-//
-//        ((StationListActivityComponent) component).inject(this);
 
-        final StationListViewModal viewModel = ViewModelProviders.of(this, viewModelFactory)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(StationListViewModal.class);
 
-        editText.addTextChangedListener(new TextWatcher() {
+        searchTextListener();
+
+    }
+
+    private void searchTextListener(){
+        stationSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -105,9 +110,11 @@ public class StationListActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-
-
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

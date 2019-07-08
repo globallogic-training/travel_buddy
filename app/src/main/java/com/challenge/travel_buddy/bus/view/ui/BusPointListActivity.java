@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,8 @@ public class BusPointListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -52,7 +55,10 @@ public class BusPointListActivity extends AppCompatActivity {
         }
 
         stationRecyclerView = (RecyclerView) findViewById(R.id.stationRecylerView);
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        stationRecyclerView.addItemDecoration(decoration);
         stationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         EditText editText = findViewById(R.id.station_edittext);
         editText.requestFocus();
@@ -97,5 +103,11 @@ public class BusPointListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

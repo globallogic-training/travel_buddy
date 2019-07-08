@@ -20,6 +20,7 @@ public class BusItemVH extends RecyclerView.ViewHolder implements View.OnClickLi
     public TextView busDepartureTime;
     public TextView bus_travel_hrs;
     public TextView bus_cost;
+    public TextView busRating;
 
 
     public BusItemVH(@NonNull View itemView) {
@@ -34,6 +35,7 @@ public class BusItemVH extends RecyclerView.ViewHolder implements View.OnClickLi
         busDepartureTime = itemView.findViewById(R.id.bus_departure_time);
         bus_travel_hrs = itemView.findViewById(R.id.bus_travel_hrs);
         bus_cost = itemView.findViewById(R.id.bus_cost);
+        busRating = itemView.findViewById(R.id.busRating);
     }
 
     @Override

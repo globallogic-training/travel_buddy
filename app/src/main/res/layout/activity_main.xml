@@ -9,7 +9,7 @@
        android:layout_weight="1.0">
        <Button
            android:id="@+id/flight_btn"
-           android:text="Flight"
+           android:text="Flights"
            android:textSize="25sp"
            android:textStyle="bold"
            android:textColor="@color/colorPrimary"
@@ -21,7 +21,7 @@
 
        <Button
            android:id="@+id/train_btn"
-           android:text="Train"
+           android:text="Trains"
            android:textSize="25sp"
            android:textStyle="bold"
            android:textColor="@color/colorPrimary"

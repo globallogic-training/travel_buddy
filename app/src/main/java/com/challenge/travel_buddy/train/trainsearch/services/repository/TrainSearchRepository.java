@@ -48,7 +48,7 @@ public class TrainSearchRepository {
         this.trainSearchService = mTrainSearchService;
     }
 
-    public LiveData<Train> getTrains(String from, String to, String date){
+    public MutableLiveData<Train> getTrains(String from, String to, String date){
         final MutableLiveData<Train> data = new MutableLiveData<>();
         this.trainSearchService.getTrains(from,to,date)
                 .enqueue(new Callback<Train>() {
@@ -57,6 +57,8 @@ public class TrainSearchRepository {
                         if(response.body() != null){
                             Log.d("response", response.body().toString());
                             data.setValue(response.body());
+                        }else{
+                            data.setValue(null);
                         }
                     }
 
@@ -70,7 +72,7 @@ public class TrainSearchRepository {
     }
 
 
-    public LiveData<Map <String, Map<String, Available_Status>>> getAvailability(String from, String to, String date){
+    public MutableLiveData<Map <String, Map<String, Available_Status>>> getAvailability(String from, String to, String date){
 
         final MutableLiveData<Map <String, Map<String, Available_Status>>> seatAvail = new MutableLiveData<>();
         this.trainSearchService.getAvailability(from,to, date)
@@ -99,12 +101,15 @@ public class TrainSearchRepository {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                        }else{
+                            seatAvail.setValue(null);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.d("error", t.toString());
+                        seatAvail.setValue(null);
                     }
                 });
         return seatAvail;
@@ -172,12 +177,17 @@ public class TrainSearchRepository {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
+                                }else{
+                                    data.add(null);
+                                    bestAvailTrainInMonth.setValue(data);
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Log.d("error", t.toString());
+                                data.add(null);
+                                bestAvailTrainInMonth.setValue(data);
                             }
                         });
 //            }

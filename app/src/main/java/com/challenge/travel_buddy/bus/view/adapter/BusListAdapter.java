@@ -13,6 +13,7 @@ import com.challenge.travel_buddy.bus.services.model.BusModel;
 import com.challenge.travel_buddy.bus.services.model.busresponse.Inv;
 import com.challenge.travel_buddy.bus.util.Utils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class BusListAdapter extends RecyclerView.Adapter<BusItemVH> {
@@ -35,7 +36,6 @@ public class BusListAdapter extends RecyclerView.Adapter<BusItemVH> {
 
     @Override
     public void onBindViewHolder(@NonNull BusItemVH holder, int position) {
-        Utils utils = new Utils();
         Inv model = mBusList.get(position);
         holder.busName.setText(model.getTvs());
         holder.busType.setText(model.getBt());
@@ -44,9 +44,11 @@ public class BusListAdapter extends RecyclerView.Adapter<BusItemVH> {
         holder.bus_bp.setText(model.getStdBp());
         holder.bus_dp.setText(model.getStdDp());
         holder.bus_cost.setText(model.getMinfr().toString());
-        holder.busArrivalTime.setText(utils.format_arr_dep_time(model.getAt()));
-        holder.busDepartureTime.setText(utils.format_arr_dep_time(model.getDt()));
-        holder.bus_travel_hrs.setText(utils.converMinsToHrs(model.getDuration()));
+        holder.busArrivalTime.setText(Utils.formatArrDepTime(model.getAt()));
+        holder.busDepartureTime.setText(Utils.formatArrDepTime(model.getDt()));
+        holder.bus_travel_hrs.setText(Utils.converMinsToHrs(model.getDuration()));
+        if(model.getRt().getTotRt() != null)
+            holder.busRating.setText(  Math.floor(model.getRt().getTotRt() * 10) / 10 +"\u2605");
     }
 
     @Override

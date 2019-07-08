@@ -23,16 +23,12 @@ public class TrainListViewModel extends AndroidViewModel {
     private static final String TAG = TrainListViewModel.class.getName();
 
     private TrainSearchRepository trainSearchRepository;
-    private LiveData<Train> trainListModelLiveData;
-    private LiveData<Map <String, Map<String, Available_Status>>> seatAvailability;
-    private MutableLiveData<List<Map <String, Map<String, Available_Status>>>> bestAvailInMonth;
+    private MutableLiveData<Train> trainListModelLiveData;
+    private MutableLiveData<Map <String, Map<String, Available_Status>>> seatAvailability;
     private MutableLiveData<List<TrainAvailabilityModel>> bestAvailInMonth1;
     private MutableLiveData<Train_Number_Search> trainNameFromCodeSL;
     private MutableLiveData<Train_Number_Search> trainNameFromCode3A;
 
-//    private final MutableLiveData<String> projectID;
-
-//    public ObservableField<> project = new ObservableField<>();
 
     @Inject
     public TrainListViewModel(@NonNull TrainSearchRepository trainSearchRepository, @NonNull Application application) {
@@ -40,33 +36,35 @@ public class TrainListViewModel extends AndroidViewModel {
         this.trainSearchRepository = trainSearchRepository;
     }
 
-    public LiveData<Train>getTrainList(String from, String to, String date){
-        trainListModelLiveData = trainSearchRepository.getTrains(from, to, date);
+    public LiveData<Train> getTrainList(String from, String to, String date) {
+        if (trainListModelLiveData == null){
+            trainListModelLiveData = trainSearchRepository.getTrains(from, to, date);
+        }
         return trainListModelLiveData;
     }
 
     public LiveData<Map <String, Map <String,Available_Status>>> getAvailability(String from, String to, String date){
-        seatAvailability = trainSearchRepository.getAvailability(from, to, date);
+        if(seatAvailability == null){
+            seatAvailability = trainSearchRepository.getAvailability(from, to, date);
+        }
         return seatAvailability;
     }
 
-//    public MutableLiveData<List<Map <String, Map<String, Available_Status>>>> getBestTrainInMonth(String from, String to, String date) {
-//        bestAvailInMonth = trainSearchRepository.getBestTrainInMonth(from,to,date);
-//        return bestAvailInMonth;
-//    }
-
     public MutableLiveData<List<TrainAvailabilityModel>> getBestTrainInMonth(String from, String to, String date) {
-        bestAvailInMonth1 = trainSearchRepository.getBestTrainInMonth(from,to,date);
+        if(bestAvailInMonth1 == null)
+            bestAvailInMonth1 = trainSearchRepository.getBestTrainInMonth(from,to,date);
         return bestAvailInMonth1;
     }
 
     public MutableLiveData<Train_Number_Search> getTrainFromCodeSL(String trainNumber){
-        trainNameFromCodeSL = trainSearchRepository.getTrainFromCode(trainNumber);
+        if(trainNameFromCodeSL == null)
+            trainNameFromCodeSL = trainSearchRepository.getTrainFromCode(trainNumber);
         return trainNameFromCodeSL;
     }
 
     public MutableLiveData<Train_Number_Search> getTrainFromCode3A(String trainNumber){
-        trainNameFromCode3A = trainSearchRepository.getTrainFromCode(trainNumber);
+        if(trainNameFromCode3A == null)
+            trainNameFromCode3A = trainSearchRepository.getTrainFromCode(trainNumber);
         return trainNameFromCode3A;
     }
 }

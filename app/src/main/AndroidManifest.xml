@@ -17,9 +17,7 @@
         <activity android:name=".bus.view.ui.BusResultActivity"></activity>
         <activity android:name=".bus.view.ui.BusPointListActivity" />
         <activity android:name=".bus.view.ui.SearchBusActivity" />
-        <activity
-            android:name=".train.trainsearch.view.ui.TrainSearch"
-            android:screenOrientation="portrait" />
+        <activity android:name=".train.trainsearch.view.ui.TrainSearch" />
         <activity android:name=".train.view.ui.StationListActivity" />
         <activity android:name=".train.view.ui.SearchActivity" />
         <activity android:name=".MainActivity">

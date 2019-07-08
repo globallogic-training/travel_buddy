@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.challenge.travel_buddy.bus.services.model.busresponse.BusSearchResponse;
 import com.challenge.travel_buddy.bus.services.model.busresponse.Inv;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
 public class BusListViewModel extends AndroidViewModel {
 
     private BusPointRepository busPointRepository;
-    private LiveData<List<Inv>> busSearchResult;
+    private MutableLiveData<List<Inv>> busSearchResult;
     private LiveData<Map<Date, List<Inv>>> fututeBuses;
 
 
@@ -30,7 +31,9 @@ public class BusListViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Inv>> getAllBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
-        busSearchResult =  busPointRepository.getAllBuses(from, to, fromStationId, toStationId,DOJ);
+        if(busSearchResult == null){
+            busSearchResult =  busPointRepository.getAllBuses(from, to, fromStationId, toStationId,DOJ);
+        }
         return busSearchResult;
     }
 

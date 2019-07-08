@@ -42,6 +42,8 @@ public class SearchAirportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_form);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         fromStationValue1 = (Button) this.findViewById(R.id.fromStationValue1);
         toStationValue1 = (Button) findViewById(R.id.toStationValue1);
         journeyDateValue1 = (Button) findViewById(R.id.journey_date_value1);
@@ -85,15 +87,17 @@ public class SearchAirportActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        fromStationValue = (TextView) findViewById(R.id.fromStationValue);
-        toStationValue = (TextView) findViewById(R.id.toStationValue);
-        String fromStationText = data.getStringExtra("station");
-        boolean isFrom = data.getBooleanExtra("isFrom", false);
-        if(isFrom)
-            fromStationValue1.setText(fromStationText);
-        else
-            toStationValue1.setText(fromStationText);
+        if(data != null){
+            super.onActivityResult(requestCode, resultCode, data);
+            fromStationValue = (TextView) findViewById(R.id.fromStationValue);
+            toStationValue = (TextView) findViewById(R.id.toStationValue);
+            String fromStationText = data.getStringExtra("station");
+            boolean isFrom = data.getBooleanExtra("isFrom", false);
+            if(isFrom)
+                fromStationValue1.setText(fromStationText);
+            else
+                toStationValue1.setText(fromStationText);
+        }
 
     }
     public void showTimePickerDialog(View v) {
@@ -140,6 +144,12 @@ public class SearchAirportActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

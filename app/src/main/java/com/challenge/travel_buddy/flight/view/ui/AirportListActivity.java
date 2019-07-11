@@ -15,29 +15,14 @@ import android.widget.EditText;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
-import com.challenge.travel_buddy.bus.di.BusPointActivityComponent;
-import com.challenge.travel_buddy.bus.di.DaggerBusPointActivityComponent;
-import com.challenge.travel_buddy.bus.viewmodal.BusPointViewModel;
+
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
-import com.challenge.travel_buddy.flight.services.model.Airport;
 import com.challenge.travel_buddy.flight.services.model.AirportModel;
 import com.challenge.travel_buddy.flight.view.adapter.AirportListAdapter;
 import com.challenge.travel_buddy.flight.viewmodel.AirportViewModel;
-import com.challenge.travel_buddy.train.di.DaggerStationListActivityComponent;
-import com.challenge.travel_buddy.train.di.StationListActivityComponent;
-import com.challenge.travel_buddy.train.services.model.SearchStationModel;
-import com.challenge.travel_buddy.train.view.adapter.StationListAdapter;
-import com.challenge.travel_buddy.train.view.ui.StationListActivity;
-import com.challenge.travel_buddy.train.viewmodal.StationListViewModal;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;

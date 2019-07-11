@@ -37,7 +37,7 @@ public class StationListActivity extends AppCompatActivity {
     private EditText stationSearchEditText;
     private StationListViewModal viewModel ;
     @Inject
-    private ViewModelProvider.Factory viewModelFactory;
+     ViewModelProvider.Factory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

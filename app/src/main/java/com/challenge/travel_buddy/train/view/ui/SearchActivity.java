@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        fromStationValue1 = (Button) this.findViewById(R.id.fromStationValue1);
+        fromStationValue1 = (Button) findViewById(R.id.fromStationValue1);
         toStationValue1 = (Button) findViewById(R.id.toStationValue1);
         journeyDateValue1 = (Button) findViewById(R.id.journey_date_value1);
 

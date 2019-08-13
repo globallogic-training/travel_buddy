@@ -48,7 +48,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public MainActivity(Context context){
-
-    }
 }

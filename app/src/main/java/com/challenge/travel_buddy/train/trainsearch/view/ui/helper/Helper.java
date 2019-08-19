@@ -1,7 +1,12 @@
 package com.challenge.travel_buddy.train.trainsearch.view.ui.helper;
 
+import com.challenge.travel_buddy.train.trainsearch.services.model.TrainAvailabilityModel;
+
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class Helper {
 
@@ -56,5 +61,24 @@ public class Helper {
         }
 
         return stationCode;
+    }
+
+    /* Function to sort object in array */
+
+    public static List<TrainAvailabilityModel> sortTrainsArrayByDate(List<TrainAvailabilityModel> data){
+        Collections.sort(data, new Comparator<TrainAvailabilityModel>() {
+            @Override
+            public int compare(TrainAvailabilityModel o1, TrainAvailabilityModel o2) {
+
+                if (o1 == null) {
+                    return (o2 == null) ? 0 : -1;
+                }
+                if (o2 == null) {
+                    return 1;
+                }
+                return Helper.getDateFromString(o1.getDate()).compareTo(Helper.getDateFromString(o2.getDate()));
+            }
+        });
+        return data;
     }
 }

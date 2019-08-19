@@ -66,7 +66,7 @@ public class TrainListAdapter extends RecyclerView.Adapter<TrainListViewHolder> 
     }
 
     public void changeColor(String data, TextView field){
-        if(data.startsWith("A")){
+        if(data.startsWith("A") || data.startsWith("C")){
             field.setTextColor(Color.rgb(27,94,32));
         }
         else{

@@ -12,8 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.challenge.travel_buddy.MVVMApplication;
@@ -30,8 +31,6 @@ import com.challenge.travel_buddy.train.trainsearch.view.ui.helper.Helper;
 import com.challenge.travel_buddy.train.trainsearch.viewmodal.TrainListViewModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -78,6 +77,10 @@ public class TrainSearch extends AppCompatActivity {
     public LinearLayout progressBar;
     public LinearLayout trainListProgressBar;
 
+    public RelativeLayout bestTrainSection;
+    public TextView noDataTv;
+    public ImageView nodataicom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +121,10 @@ public class TrainSearch extends AppCompatActivity {
         best_3A_lbl = findViewById(R.id.best_3A_lbl);
         best_3A_date_lbl = findViewById(R.id.best_3A_date_lbl);
 
+        bestTrainSection = findViewById(R.id.best_result_linearLayout);
+        noDataTv = findViewById(R.id.noDataTv);
+        nodataicom = findViewById(R.id.nodataicom);
+
 
         progressBar.setVisibility(View.VISIBLE);
         trainListProgressBar.setVisibility(View.VISIBLE);
@@ -133,19 +140,19 @@ public class TrainSearch extends AppCompatActivity {
             public void onChanged(@Nullable Train train) {
                 fetchedTrains = train;
                 isTrainsAvailable = true;
-                setBothData();
+                setTrainAndAvailToList();
             }
         });
 
         viewModel.getAvailability(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), availDate)
-                .observe(this, new Observer<Map <String, Map<String, Available_Status>>>() {
-                    @Override
-                    public void onChanged(@Nullable Map <String, Map<String, Available_Status>> availabilityModels) {
-                        availableSeats = availabilityModels;
-                        isSeatsAvilable = true;
-                        setBothData();
-                    }
-                });
+        .observe(this, new Observer<Map <String, Map<String, Available_Status>>>() {
+            @Override
+            public void onChanged(@Nullable Map <String, Map<String, Available_Status>> availabilityModels) {
+                availableSeats = availabilityModels;
+                isSeatsAvilable = true;
+                setTrainAndAvailToList();
+            }
+        });
 
         viewModel.getBestTrainInMonth(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), availDate)
 
@@ -155,47 +162,28 @@ public class TrainSearch extends AppCompatActivity {
                         boolean is_best_3A_found = false;
                         boolean is_best_SL_found = false;
                         if(data.size() == 30) {
-                            Collections.sort(data, new Comparator<TrainAvailabilityModel>() {
-                                @Override
-                                public int compare(TrainAvailabilityModel o1, TrainAvailabilityModel o2) {
-
-                                    if (o1 == null) {
-                                        return (o2 == null) ? 0 : -1;
-                                    }
-                                    if (o2 == null) {
-                                        return 1;
-                                    }
-
-                                    return Helper.getDateFromString(o1.getDate()).compareTo(Helper.getDateFromString(o2.getDate()));
-                                }
-                            });
-
+                            data = Helper.sortTrainsArrayByDate(data);
                             Iterator<TrainAvailabilityModel> itr = data.iterator();
                             while(itr.hasNext()){
-                                TrainAvailabilityModel trainmaodel = itr.next();
-
-                                if(trainmaodel == null)
+                                TrainAvailabilityModel trainModel = itr.next();
+                                if(trainModel == null)
                                     itr.remove();
                             }
                             for(int i=0; i< data.size(); i++){
-                                Map<String, Map<String, Available_Status>> x = data.get(i).getData();
+                                Map<String, Map<String, Available_Status>> trainPerDay = data.get(i).getData();
                                 String trainDate = Helper.getDateFromTimeStamp(data.get(i).getDate());
-                                Set<String> keys = x.keySet();
-                                for(String key: keys){
-                                    Map<String, Available_Status> avail = x.get(key);
+                                Set<String> trainNumbers = trainPerDay.keySet();
+                                for(String trainNumber: trainNumbers){
+                                    Map<String, Available_Status> avail = trainPerDay.get(trainNumber);
                                     if(avail.containsKey("SL|GN")) {
-                                        if (!is_best_SL_found && avail.get("SL|GN") != null && avail.get("SL|GN").getA() != null && avail.get("SL|GN").getA().startsWith("A")) {
-                                            bestWithClassSL.put("SL|GN", avail.get("SL|GN"));
-                                            bestSLDate.put("date",trainDate);
-                                            bestSL.put(key, bestWithClassSL);
+                                        if (!is_best_SL_found && avail.get("SL|GN") != null && avail.get("SL|GN").getA() != null && (avail.get("SL|GN").getA().startsWith("A")) || avail.get("SL|GN").getA().startsWith("C")) {
+                                            setBestTrainAvailData(true,trainDate,avail,trainNumber);
                                             is_best_SL_found = true;
                                         }
                                     }
                                     if(avail.containsKey("3A|GN")){
-                                        if(!is_best_3A_found && avail.get("3A|GN")!=null && avail.get("3A|GN").getA()!=null && avail.get("3A|GN").getA().startsWith("A")){
-                                            bestWithClass3A.put("3A|GN",avail.get("3A|GN"));
-                                            best3A.put(key,bestWithClass3A);
-                                            best3aDate.put("date", trainDate);
+                                        if(!is_best_3A_found && avail.get("3A|GN")!=null && avail.get("3A|GN").getA()!=null && (avail.get("3A|GN").getA().startsWith("A") || avail.get("3A|GN").getA().startsWith("C"))){
+                                            setBestTrainAvailData(false,trainDate,avail,trainNumber);
                                             is_best_3A_found = true;
                                         }
                                     }
@@ -218,10 +206,14 @@ public class TrainSearch extends AppCompatActivity {
                                             public void onChanged(Train_Number_Search train_number_search) {
                                                 best_SL_trainName.setText(train_number_search.getN()!=null ? train_number_search.getN() : train_number_search.getCn());
                                                 progressBar.setVisibility(View.GONE);
+                                                bestTrainSection.setVisibility(View.VISIBLE);
                                             }
                                         });
                             }else{
                                 progressBar.setVisibility(View.GONE);
+                                if(!is_best_3A_found && !is_best_SL_found){
+                                    bestTrainSection.setVisibility(View.GONE);
+                                }
                             }
 
                             if(best3A.size() > 0){
@@ -243,14 +235,14 @@ public class TrainSearch extends AppCompatActivity {
                                         });
                             }else{
                                 progressBar.setVisibility(View.GONE);
+                                if(!is_best_3A_found && !is_best_SL_found){
+                                    bestTrainSection.setVisibility(View.GONE);
+                                }
                             }
                         }
                     }
 
                 });
-
-
-
         System.out.println("In Activity");
     }
 
@@ -260,8 +252,14 @@ public class TrainSearch extends AppCompatActivity {
         return true;
     }
 
-    public void setBothData() {
+    public void setTrainAndAvailToList() {
         ArrayList<TrainDataModel> serchedTrainList = new ArrayList<>();
+
+        if( fetchedTrains == null) {
+            nodataicom.setVisibility(View.VISIBLE);
+            noDataTv.setVisibility(View.VISIBLE);
+            trainListProgressBar.setVisibility(View.GONE);
+        }
         if(isSeatsAvilable && isTrainsAvailable && fetchedTrains != null){
 
             for(TrainDataModel trainModel: fetchedTrains.getData().getTrainsBetweenStations()){
@@ -270,24 +268,32 @@ public class TrainSearch extends AppCompatActivity {
                     Map<String, Available_Status> avail = availableSeats.get(trainNumber);
                     if (avail != null) {
                         trainModel.setAvailable_seats(avail);
-                        serchedTrainList.add(trainModel);
-                    } else {
-                        serchedTrainList.add(trainModel);
                     }
-                }else{
                     serchedTrainList.add(trainModel);
                 }
 
             }
-
             fetchedTrains.getData().setTrainsBetweenStations(serchedTrainList);
             adapter = new TrainListAdapter(TrainSearch.this, fetchedTrains.getData().getTrainsBetweenStations());
             trainListRecycler.setAdapter(adapter);
             isSeatsAvilable = false;
             isTrainsAvailable = false;
             trainListProgressBar.setVisibility(View.GONE);
-        }else if( fetchedTrains == null) {
-            trainListProgressBar.setVisibility(View.GONE);
+            nodataicom.setVisibility(View.GONE);
+            noDataTv.setVisibility(View.GONE);
+        }
+    }
+
+    public void setBestTrainAvailData(boolean isSL, String date, Map<String, Available_Status> avail, String trainNumber ){
+        if(isSL){
+            bestWithClassSL.put("SL|GN", avail.get("SL|GN"));
+            bestSLDate.put("date",date);
+            bestSL.put(trainNumber, bestWithClassSL);
+        }
+        else {
+            bestWithClass3A.put("3A|GN",avail.get("3A|GN"));
+            best3aDate.put("date", date);
+            best3A.put(trainNumber,bestWithClass3A);
         }
     }
 

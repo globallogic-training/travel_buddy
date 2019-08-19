@@ -10,26 +10,31 @@
        <Button
            android:id="@+id/flight_btn"
            android:text="Flights"
-           android:textSize="25sp"
+           android:textSize="22sp"
            android:textStyle="bold"
            android:textColor="@color/colorPrimary"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:padding="20dip"
            android:layout_marginTop="20dip"
-           android:layout_weight="1.0"/>
+           android:layout_weight="1.0"
+           android:drawableTop="@drawable/globe"
+           android:backgroundTint="@color/cardview_light_background"
+           />
 
        <Button
            android:id="@+id/train_btn"
            android:text="Trains"
-           android:textSize="25sp"
+           android:textSize="22sp"
            android:textStyle="bold"
            android:textColor="@color/colorPrimary"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:padding="20dip"
            android:layout_marginTop="20dip"
-           android:layout_weight="1.0"/>
+           android:layout_weight="1.0"
+           android:drawableTop="@drawable/train"
+           android:backgroundTint="@color/cardview_light_background"/>
    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,25 +44,30 @@
         <Button
             android:id="@+id/bus_btn"
             android:text="Buses"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dip"
             android:layout_marginTop="20dip"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/bus"
+            android:backgroundTint="@color/cardview_light_background"
+            />
         <Button
             android:id="@+id/hybrid_btn"
             android:text="Hybrid Search"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dip"
             android:layout_marginTop="20dip"
-            android:layout_weight="1.0"/>
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/hybrid_icon"
+            android:backgroundTint="@color/cardview_light_background"/>
     </LinearLayout>
 
 </LinearLayout>

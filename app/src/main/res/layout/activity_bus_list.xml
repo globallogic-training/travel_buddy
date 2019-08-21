@@ -251,50 +251,6 @@
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_below="@id/time_divider"-->
-                <!--android:paddingVertical="3dp">-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_weight="1.6"-->
-                    <!--&gt;-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/bus_bp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="N/A"-->
-                        <!--android:ellipsize="end"-->
-                        <!--android:maxLines="1"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="|"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/bus_dp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="N/A"-->
-                        <!--android:ellipsize="end"-->
-                        <!--android:maxLines="1"-->
-                        <!--/>-->
-
-                <!--</LinearLayout>-->
-
-               <!---->
-            <!--</LinearLayout>-->
-
         </RelativeLayout>
 
     </RelativeLayout>

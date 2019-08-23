@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
@@ -96,6 +98,7 @@ public class TrainSearch extends AppCompatActivity {
 
     public LiveData<String> searchDate;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -283,27 +286,46 @@ public class TrainSearch extends AppCompatActivity {
         next_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trainListRecycler.setVisibility(View.GONE);
-                mShimmerViewContainer.setVisibility(View.VISIBLE);
-                mShimmerViewContainer.startShimmerAnimation();
                 String increamentedDate = Helper.getIncreamentedDate(availDate, true);
                 viewModel.setSerchDate(increamentedDate);
-                nodataicom.setVisibility(View.GONE);
-                setPrevBtnFunctionality(increamentedDate);
+                performNextPrev(increamentedDate);
             }
         });
 
         prev_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trainListRecycler.setVisibility(View.GONE);
-                mShimmerViewContainer.setVisibility(View.VISIBLE);
-                mShimmerViewContainer.startShimmerAnimation();
                 String decrementedDate = Helper.getIncreamentedDate(availDate, false);
                 viewModel.setSerchDate(decrementedDate);
-                nodataicom.setVisibility(View.GONE);
-                setPrevBtnFunctionality(decrementedDate);
+                performNextPrev(decrementedDate);
+            }
+        });
 
+        trainListRecycler.setOnTouchListener(new OnSwipeTouchListener(this){
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                String increamentedDate = Helper.getIncreamentedDate(availDate, true);
+                viewModel.setSerchDate(increamentedDate);
+                performNextPrev(increamentedDate);
+                String dashedIncDate = Helper.getDashDate(increamentedDate);
+                Toast.makeText(TrainSearch.this, "Results for : "+ dashedIncDate, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Date date = Helper.getDateFromString(availDate);
+                if(date.getTime() > System.currentTimeMillis()){
+                    String decrementedDate = Helper.getIncreamentedDate(availDate, false);
+                    viewModel.setSerchDate(decrementedDate);
+                    performNextPrev(decrementedDate);
+                    String dashedDecrDate = Helper.getDashDate(decrementedDate);
+                    Toast.makeText(TrainSearch.this, "Results for : "+ dashedDecrDate, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(TrainSearch.this, "Sorry!.. No train results for past date.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -369,6 +391,11 @@ public class TrainSearch extends AppCompatActivity {
         prev_day_btn.setEnabled(date.getTime() > System.currentTimeMillis());
     }
 
-
-
+    public void performNextPrev(String date){
+        trainListRecycler.setVisibility(View.GONE);
+        mShimmerViewContainer.setVisibility(View.VISIBLE);
+        mShimmerViewContainer.startShimmerAnimation();
+        nodataicom.setVisibility(View.GONE);
+        setPrevBtnFunctionality(date);
+    }
 }

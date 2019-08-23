@@ -72,6 +72,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
 
+    // Facebook shimmer library
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
     //jsoup
     implementation 'org.jsoup:jsoup:1.8.3'
 

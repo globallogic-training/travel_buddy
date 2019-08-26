@@ -7,6 +7,7 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
+    android:elevation="2dp"
     app:cardBackgroundColor="#FFFFFF">
 
 
@@ -14,54 +15,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/trainName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="N/A"
-            android:paddingBottom="5dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-        <TextView
-            android:id="@+id/trainNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignRight="@+id/trainName"
-            android:layout_marginEnd="10dp"
-            android:paddingBottom="5dp"
-            android:text="N/A"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_alignBottom="@id/trainName"
-            />
-
         <LinearLayout
+            android:id="@+id/baselinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/train_card_header"
             android:orientation="horizontal"
             android:paddingHorizontal="0dp"
-            android:paddingVertical="10dp"
-            android:layout_below="@id/trainName"
-            android:id="@+id/baselinear"
-            >
+            android:paddingVertical="10dp">
+
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/SL_Availability_lbl"
@@ -76,43 +50,40 @@
                         android:id="@+id/SL_Availability"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
                         android:paddingTop="0dp"
+                        android:text="N/A"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
-                android:paddingTop="0dp"
-                android:background="@android:color/darker_gray" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="|" />
 
             <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-                android:paddingLeft="10dp"
-                >
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:orientation="horizontal"
                     android:layout_weight="1"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/_3A_Availability_lbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3A : "
                         android:paddingTop="0dp"
+                        android:text="3A : "
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                     <TextView
@@ -128,66 +99,64 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:background="@android:color/darker_gray"
+                android:paddingTop="0dp" />
+
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_alignBottom="@id/baselinear"
-            android:id="@+id/avail_devider"
-            />
-
         <LinearLayout
+            android:id="@+id/time_divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@id/avail_devider"
-            android:paddingVertical="10dp"
-            android:id="@+id/time_divider">
+            android:orientation="horizontal"
+            android:paddingVertical="5dp">
 
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/arrival_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="N/A"/>
+                    android:text="N/A" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="|"
-                    />
+                    android:text="|" />
 
                 <TextView
                     android:id="@+id/departure_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="N/A"/>
+                    android:text="N/A" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/travel_hrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="N/A"/>
+                    android:text="N/A" />
 
             </LinearLayout>
 
@@ -196,40 +165,93 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@id/time_divider"
-            android:paddingVertical="10dp">
+            android:orientation="horizontal"
+            android:paddingVertical="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_weight="1"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/travel_src"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="N/A"/>
+                    android:text="N/A" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="-->"
-                    />
+                    android:text="-->" />
 
                 <TextView
                     android:id="@+id/travel_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="N/A"/>
+                    android:text="N/A" />
 
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/train_card_header"
+            >
+
+            <ImageView
+                android:id="@+id/list_train_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/train"/>
+
+            <TextView
+                android:id="@+id/trainName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:paddingVertical="2dp"
+                android:layout_toRightOf="@+id/list_train_icon"
+                android:paddingBottom="10dp"
+                android:text="N/A"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/background_dark"
+                android:layout_weight="1.0"/>
+
+            <TextView
+                android:id="@+id/trainNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignRight="@+id/trainName"
+                android:layout_marginEnd="10dp"
+                android:paddingBottom="5dp"
+                android:paddingVertical="2dp"
+                android:text="N/A"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/background_dark"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/train_card_header"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:id="@+id/avail_devider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/baselinear"
+            android:background="@android:color/darker_gray" />
 
     </RelativeLayout>
 

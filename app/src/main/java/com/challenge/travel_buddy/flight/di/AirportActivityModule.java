@@ -16,7 +16,7 @@ public class AirportActivityModule {
     @AirportActivityScope
     @Provides
     AirportService provideAirportService() {
-        return new Retrofit.Builder().baseUrl("https://voyager.goibibo.com")
+        return new Retrofit.Builder().baseUrl("https://www.ixigo.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AirportService.class);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,7 @@ import com.challenge.travel_buddy.R;
 
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
-import com.challenge.travel_buddy.flight.services.model.AirportModel;
+import com.challenge.travel_buddy.flight.services.model.Datum;
 import com.challenge.travel_buddy.flight.view.adapter.AirportListAdapter;
 import com.challenge.travel_buddy.flight.viewmodel.AirportViewModel;
 
@@ -56,6 +57,8 @@ public class AirportListActivity extends AppCompatActivity {
         }
 
         stationRecyclerView = (RecyclerView) findViewById(R.id.stationRecylerView);
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        stationRecyclerView.addItemDecoration(decoration);
         stationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         EditText editText = findViewById(R.id.station_edittext);
@@ -83,9 +86,9 @@ public class AirportListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final StringBuilder sb = new StringBuilder(s.length());
                 sb.append(s);
-                viewModel.searchAirport(sb.toString()).observe(instance, new Observer<List<AirportModel>>() {
+                viewModel.searchAirport(sb.toString()).observe(instance, new Observer<List<Datum>>() {
                     @Override
-                    public void onChanged(@Nullable List<AirportModel> airport) {
+                    public void onChanged(@Nullable List<Datum> airport) {
                         if(airport != null) {
                             adapter = new AirportListAdapter(AirportListActivity.this, airport, isFrom);
                             stationRecyclerView.setAdapter(adapter);

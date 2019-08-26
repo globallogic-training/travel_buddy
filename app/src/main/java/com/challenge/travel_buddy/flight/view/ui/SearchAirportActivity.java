@@ -37,6 +37,7 @@ public class SearchAirportActivity extends AppCompatActivity {
 
     private static String date;
     private static String avail_date;
+    private static String endDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +66,17 @@ public class SearchAirportActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callActivityForTrainSearch();
+                callActivityForFlightSearch();
             }
         });
         getWebsite();
     }
-    private void callActivityForTrainSearch() {
-        Intent intent = new Intent(this, TrainSearch.class);
+    private void callActivityForFlightSearch() {
+        Intent intent = new Intent(this, FlightListActivity.class);
         intent.putExtra("from", fromStationValue1.getText());
         intent.putExtra("to", toStationValue1.getText());
-        intent.putExtra("date", date);
-        intent.putExtra("avail_formated_date", avail_date);
+        intent.putExtra("startDate", avail_date);
+        intent.putExtra("endDate", endDate);
         startActivity(intent);
     }
 
@@ -109,8 +110,8 @@ public class SearchAirportActivity extends AppCompatActivity {
         Date date1;
         date = year+"-"+(month+1)+"-"+day;
         avail_date = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
+        endDate = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month) : (month))+ "" + (year+1);
         journeyDateValue1.setText(day+"/"+(month+1)+"/"+year);
-        System.out.println("New "+view+year+month+day );
     }
 
     private void getWebsite() {

@@ -6,9 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.challenge.travel_buddy.bus.services.repository.BusPointRepository;
-import com.challenge.travel_buddy.flight.services.model.AirportModel;
-import com.challenge.travel_buddy.flight.services.repository.AirportRepository;
+import com.challenge.travel_buddy.flight.services.model.Datum;
+import com.challenge.travel_buddy.flight.services.repository.FlightSearchRepository;
 
 import java.util.List;
 
@@ -16,20 +15,20 @@ import javax.inject.Inject;
 
 public class AirportViewModel extends AndroidViewModel {
 
-    private AirportRepository airportRepository;
-    private LiveData<List<AirportModel>> searchStationModelLiveData;
+    private FlightSearchRepository flightSearchRepository;
+    private LiveData<List<Datum>> searchStationModelLiveData;
 //    private final MutableLiveData<String> projectID;
 
 //    public ObservableField<> project = new ObservableField<>();
 
     @Inject
-    public AirportViewModel(@NonNull AirportRepository airportRepository, @NonNull Application application) {
+    public AirportViewModel(@NonNull FlightSearchRepository flightSearchRepository, @NonNull Application application) {
         super(application);
-        this.airportRepository = airportRepository;
+        this.flightSearchRepository = flightSearchRepository;
     }
 
-    public LiveData<List<AirportModel>> searchAirport(String val){
-        searchStationModelLiveData = airportRepository.getBusPoint(val);
+    public LiveData<List<Datum>> searchAirport(String val){
+        searchStationModelLiveData = flightSearchRepository.getBusPoint(val);
         return searchStationModelLiveData;
     }
 }

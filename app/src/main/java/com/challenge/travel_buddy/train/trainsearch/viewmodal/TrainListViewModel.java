@@ -28,25 +28,27 @@ public class TrainListViewModel extends AndroidViewModel {
     private MutableLiveData<List<TrainAvailabilityModel>> bestAvailInMonth1;
     private MutableLiveData<Train_Number_Search> trainNameFromCodeSL;
     private MutableLiveData<Train_Number_Search> trainNameFromCode3A;
+    private MutableLiveData<String> searchDate;
 
 
     @Inject
     public TrainListViewModel(@NonNull TrainSearchRepository trainSearchRepository, @NonNull Application application) {
         super(application);
         this.trainSearchRepository = trainSearchRepository;
+        searchDate = new MutableLiveData<>();
     }
 
     public LiveData<Train> getTrainList(String from, String to, String date) {
-        if (trainListModelLiveData == null){
+//        if (trainListModelLiveData == null){
             trainListModelLiveData = trainSearchRepository.getTrains(from, to, date);
-        }
+//        }
         return trainListModelLiveData;
     }
 
     public LiveData<Map <String, Map <String,Available_Status>>> getAvailability(String from, String to, String date){
-        if(seatAvailability == null){
+//        if(seatAvailability == null){
             seatAvailability = trainSearchRepository.getAvailability(from, to, date);
-        }
+//        }
         return seatAvailability;
     }
 
@@ -67,4 +69,14 @@ public class TrainListViewModel extends AndroidViewModel {
             trainNameFromCode3A = trainSearchRepository.getTrainFromCode(trainNumber);
         return trainNameFromCode3A;
     }
+
+    public void setSerchDate(String newDate){
+        searchDate.setValue(newDate);
+    }
+
+    public MutableLiveData<String> getSearchDate(){
+        return searchDate;
+    }
+
+
 }

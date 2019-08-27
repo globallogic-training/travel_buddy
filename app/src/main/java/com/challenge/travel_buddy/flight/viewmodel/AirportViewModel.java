@@ -28,7 +28,7 @@ public class AirportViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Datum>> searchAirport(String val){
-        searchStationModelLiveData = flightSearchRepository.getBusPoint(val);
+        searchStationModelLiveData = flightSearchRepository.getAirportLists(val);
         return searchStationModelLiveData;
     }
 }

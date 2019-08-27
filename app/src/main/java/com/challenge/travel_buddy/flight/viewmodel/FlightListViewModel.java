@@ -5,18 +5,19 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.challenge.travel_buddy.flight.services.model.Flight.FlightData;
+import com.challenge.travel_buddy.flight.services.model.Flight.Data;
 import com.challenge.travel_buddy.flight.services.repository.FlightSearchRepository;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
 public class FlightListViewModel extends AndroidViewModel {
 
     private FlightSearchRepository flightSearchRepository;
-    private LiveData<FlightData> flightData;
-//    private LiveData<Map<Date, List<Inv>>> fututeBuses;
+    private LiveData<Map<String,Object>> searchData;
+    private LiveData<Data> flightData;
 
 
     @Inject
@@ -25,16 +26,14 @@ public class FlightListViewModel extends AndroidViewModel {
         this.flightSearchRepository = flightSearchRepository;
     }
 
-    public LiveData<FlightData> getFlight(String source, String destination, String startDate, String endDate){
-        if(flightData == null){
-            flightData =  flightSearchRepository.getFlight(source, destination, startDate, endDate);
-        }
+    public LiveData<Data> getFlightData(String value){
+            flightData =  flightSearchRepository.getFlights(value);
         return flightData;
     }
-//
-//    public LiveData<Map<Date, List<Inv>>> getFutureBuses(String from, String to, String fromStationId, String toStationId, String DOJ){
-//        fututeBuses = busPointRepository.getFutureBuses(from, to, fromStationId, toStationId,DOJ);
-//        return fututeBuses;
-//    }
+
+    public LiveData<Map<String, Object>> getSearchProviders(String source, String destination, String startDate, String endDate){
+        searchData = flightSearchRepository.getSearchProvider(source, destination, startDate, endDate);
+        return searchData;
+    }
 }
 

@@ -4,40 +4,33 @@ package com.challenge.travel_buddy.flight.services.model.Flight;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Data {
 
-    @SerializedName("going")
+    @SerializedName("providers")
     @Expose
-    private Going going;
-    @SerializedName("returning")
+    private ArrayList<Integer> providers;
+
+    @SerializedName("results")
     @Expose
-    private Object returning;
-    @SerializedName("showOutlook")
-    @Expose
-    private Boolean showOutlook;
+    private Map<String,Object> results;
 
-    public Going getGoing() {
-        return going;
+    public ArrayList<Integer> getProviders() {
+        return providers;
     }
 
-    public void setGoing(Going going) {
-        this.going = going;
+    public void setProviders(ArrayList<Integer> providers) {
+        this.providers = providers;
     }
 
-    public Object getReturning() {
-        return returning;
+    public Map<String, Object> getResults() {
+        return results;
     }
 
-    public void setReturning(Object returning) {
-        this.returning = returning;
-    }
-
-    public Boolean getShowOutlook() {
-        return showOutlook;
-    }
-
-    public void setShowOutlook(Boolean showOutlook) {
-        this.showOutlook = showOutlook;
+    public void setResults(Map<String, Object> results) {
+        this.results = results;
     }
 
 }

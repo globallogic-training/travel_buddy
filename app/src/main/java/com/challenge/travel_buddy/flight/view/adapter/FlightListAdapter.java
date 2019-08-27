@@ -9,20 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.challenge.travel_buddy.R;
-import com.challenge.travel_buddy.flight.services.model.Flight.FlightData;
-import com.challenge.travel_buddy.flight.services.model.Flight.Result;
 
 import java.util.List;
+import java.util.Map;
 
 public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
 
     Context mContext;
-    FlightData flightData;
-    List<Result> flightList;
+    List<Map<String, Object>> flightList;
 
-    public FlightListAdapter(Context context, FlightData flightData) {
-        this.flightData = flightData;
-        this.flightList = flightData.getData().getGoing().getResults();
+    public FlightListAdapter(Context context, List<Map<String, Object>> flightList) {
+        this.flightList = flightList;
+//        this.flightList = flightData.getData().getGoing().getResults();
         this.mContext = context;
     }
 
@@ -36,8 +34,8 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
 
     @Override
     public void onBindViewHolder(@NonNull FlightItemVH holder, int position) {
-        Result model = flightList.get(position);
-        holder.busName.setText(model.getAirline());
+        Map<String, Object> model = flightList.get(position);
+        holder.busName.setText((String) model.get("total"));
 //        holder.busType.setText(model.getBt());
 //        holder.total_bus_seats.setText(model.getNsa().toString());
 //        holder.total_window_seats.setText(model.getWnSt().toString());

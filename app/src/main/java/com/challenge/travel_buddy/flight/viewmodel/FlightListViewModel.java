@@ -17,7 +17,7 @@ public class FlightListViewModel extends AndroidViewModel {
 
     private FlightSearchRepository flightSearchRepository;
     private LiveData<Map<String,Object>> searchData;
-    private LiveData<Data> flightData;
+    private LiveData<Map<String, Object>> flightData;
 
 
     @Inject
@@ -26,8 +26,8 @@ public class FlightListViewModel extends AndroidViewModel {
         this.flightSearchRepository = flightSearchRepository;
     }
 
-    public LiveData<Data> getFlightData(String value){
-            flightData =  flightSearchRepository.getFlights(value);
+    public LiveData<Map<String, Object>> getFlightData(String flyFrom, String to, String dateFrom, String dateTo){
+            flightData =  flightSearchRepository.getFlights(flyFrom, to, dateFrom, dateTo);
         return flightData;
     }
 

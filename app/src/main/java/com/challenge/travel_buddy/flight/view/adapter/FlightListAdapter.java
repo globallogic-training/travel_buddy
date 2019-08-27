@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.challenge.travel_buddy.R;
+import com.challenge.travel_buddy.bus.util.Utils;
 
 import java.util.List;
 import java.util.Map;
@@ -35,22 +36,32 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
     @Override
     public void onBindViewHolder(@NonNull FlightItemVH holder, int position) {
         Map<String, Object> model = flightList.get(position);
-        holder.busName.setText((String) model.get("total"));
-//        holder.busType.setText(model.getBt());
-//        holder.total_bus_seats.setText(model.getNsa().toString());
-//        holder.total_window_seats.setText(model.getWnSt().toString());
-//        holder.bus_bp.setText(model.getStdBp());
-//        holder.bus_dp.setText(model.getStdDp());
-//        holder.bus_cost.setText(model.getMinfr().toString());
-//        holder.busArrivalTime.setText(Utils.formatArrDepTime(model.getAt()));
-//        holder.busDepartureTime.setText(Utils.formatArrDepTime(model.getDt()));
-//        holder.bus_travel_hrs.setText(Utils.converMinsToHrs(model.getDuration()));
-//        if(model.getRt().getTotRt() != null)
-//            holder.busRating.setText(  Math.floor(model.getRt().getTotRt() * 10) / 10 +"\u2605");
+        holder.depFrom.setText((String) model.get("cityFrom"));
+        holder.arrTo.setText((String) model.get("cityTo"));
+        holder.flightCost.setText(""+ ( (int) model.get("price")));
+        holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
+        holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
+        holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
+        holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
     }
 
     @Override
     public int getItemCount() {
         return flightList.size();
+    }
+
+    public static String getAirlinesName(List<String> airlines){
+
+        switch (airlines.get(0)){
+            case "G8":
+                return "Go Air";
+            case "AI":
+                return "Air India";
+            case "6E":
+                return "Indigo";
+                default:
+                    return "Undefined";
+        }
+
     }
 }

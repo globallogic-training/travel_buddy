@@ -10,32 +10,29 @@ import com.challenge.travel_buddy.R;
 
 public class FlightItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView busName;
-    public TextView busType;
-    public TextView total_bus_seats;
-    public TextView total_window_seats;
-    public TextView bus_bp;
-    public TextView bus_dp;
-    public TextView busArrivalTime;
-    public TextView busDepartureTime;
-    public TextView bus_travel_hrs;
-    public TextView bus_cost;
-    public TextView busRating;
+    public TextView flightName;
+    public TextView depTime;
+    public TextView arrTime;
+    public TextView fly_duration;
+    public TextView flightCost;
+    public TextView depFrom;
+    public TextView arrTo;
+    public TextView airlinesName;
+    public TextView duration;
 
 
     public FlightItemVH(@NonNull View itemView) {
         super(itemView);
-        busName = itemView.findViewById(R.id.busName);
-        busType = itemView.findViewById(R.id.busType);
-        total_bus_seats = itemView.findViewById(R.id.total_bus_seats);
-        total_window_seats = itemView.findViewById(R.id.total_window_seats);
-        bus_bp = itemView.findViewById(R.id.bus_bp);
-        bus_dp = itemView.findViewById(R.id.bus_dp);
-        busArrivalTime = itemView.findViewById(R.id.bus_arrival_time);
-        busDepartureTime = itemView.findViewById(R.id.bus_departure_time);
-        bus_travel_hrs = itemView.findViewById(R.id.bus_travel_hrs);
-        bus_cost = itemView.findViewById(R.id.bus_cost);
-        busRating = itemView.findViewById(R.id.busRating);
+        flightName = itemView.findViewById(R.id.busName);
+        depFrom = itemView.findViewById(R.id.bus_bp);
+        arrTo = itemView.findViewById(R.id.bus_dp);
+        fly_duration = itemView.findViewById(R.id.bus_travel_hrs);
+        flightCost = itemView.findViewById(R.id.bus_cost);
+        depTime = itemView.findViewById(R.id.bus_departure_time);
+        arrTime = itemView.findViewById(R.id.bus_arrival_time);
+        airlinesName = itemView.findViewById(R.id.airlinesName);
+        duration = itemView.findViewById(R.id.duration);
+
     }
 
     @Override

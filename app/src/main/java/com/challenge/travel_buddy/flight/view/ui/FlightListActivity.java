@@ -17,17 +17,11 @@ import android.widget.ProgressBar;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
-import com.challenge.travel_buddy.bus.view.adapter.BusListAdapter;
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
-import com.challenge.travel_buddy.flight.services.model.Datum;
-import com.challenge.travel_buddy.flight.services.model.Flight.Data;
-import com.challenge.travel_buddy.flight.view.adapter.AirportListAdapter;
 import com.challenge.travel_buddy.flight.view.adapter.FlightListAdapter;
-import com.challenge.travel_buddy.flight.viewmodel.AirportViewModel;
 import com.challenge.travel_buddy.flight.viewmodel.FlightListViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -79,38 +73,20 @@ public class FlightListActivity extends AppCompatActivity {
         FlightListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FlightListViewModel.class);
 
-        viewModel.getSearchProviders(trimForAiportCode(source), trimForAiportCode(destination), startDate, endDate).observe(this, new Observer<Map<String,Object>>() {
+//
+        viewModel.getFlightData(trimForAiportCode(source), trimForAiportCode(destination), startDate, endDate).observe(FlightListActivity.this, new Observer<Map<String, Object>>() {
             @Override
-            public void onChanged(@Nullable Map<String,Object> flightData) {
-                if(flightData != null) {
-
-                    viewModel.getFlightData((String) flightData.get("searchToken")).observe(FlightListActivity.this, new Observer<Data>() {
-                        @Override
-                        public void onChanged(Data data) {
-                            System.out.println("Hello");
-                            List<Map<String,Object>> flightList = fetchFlightList(data);
-                            adapter = new FlightListAdapter(FlightListActivity.this, flightList);
-                            flightListRecycler.setAdapter(adapter);
-                            busProgressBar.setVisibility(View.GONE);
-                        }
-                    });
-
-                }
+            public void onChanged(Map<String, Object> data) {
+                List<Map<String,Object>> flightList = fetchFlightList(data);
+                adapter = new FlightListAdapter(FlightListActivity.this, flightList);
+                flightListRecycler.setAdapter(adapter);
+                busProgressBar.setVisibility(View.GONE);
             }
         });
     }
-    private List<Map<String, Object>> fetchFlightList(Data data){
-        Map<String, Object> flight = (Map<String, Object>) ((Map<String, Object>)((Map<String, Object>)data.getResults().get("196")).get("outR")).get("fares");
-        List<Map<String, Object>> flightList = new ArrayList<>();
-        if(flight != null){
-            for( String key : flight.keySet()){
-                if(key.contains(trimForAiportCode(source)+"-"+trimForAiportCode(destination))){
-                    flightList.add(((List<Map<String, Object>>) flight.get(key)).get(0));
-                }
-
-            }        }
-        System.out.println("90");
-        return flightList;
+    private List<Map<String, Object>> fetchFlightList(Map<String, Object> data){
+            List<Map<String, Object>> flight = (List) data.get("data");
+        return flight;
     }
     private String trimForAiportCode(String str){
         String newstr = "";

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/busName"
+            android:id="@+id/airlinesName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -28,11 +28,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/busName"
+            android:layout_alignRight="@+id/airlinesName"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_marginEnd="10dp"
-            android:text="N/A"
-            android:id="@+id/busRating"
+            android:id="@+id/duration"
             android:textStyle="bold"
             />
 
@@ -40,7 +39,7 @@
             android:id="@+id/busType"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_below="@+id/busName"
+            android:layout_below="@+id/airlinesName"
             android:layout_marginEnd="10dp"
             android:paddingBottom="5dp"
             android:layout_marginStart="10dp"
@@ -49,117 +48,14 @@
             android:text="N/A"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_alignBottom="@id/busType"
-            />
+        
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="0dp"
             android:paddingVertical="10dp"
-            android:layout_below="@id/busType"
-            android:id="@+id/baselinear"
-            >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/total_bus_seats_lbl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:paddingTop="0dp"
-                        android:text="Total Seats : "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                    <TextView
-                        android:id="@+id/total_bus_seats"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:paddingTop="0dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
-                android:paddingTop="0dp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
-
-                    <TextView
-                        android:id="@+id/total_window_seats_lbl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Window Seats : "
-                        android:paddingTop="0dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                    <TextView
-                        android:id="@+id/total_window_seats"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="0dp"
-                        android:text="N/A"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_alignBottom="@id/baselinear"
-            android:id="@+id/avail_devider"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/avail_devider"
-            android:paddingVertical="10dp"
+            android:layout_below="@+id/busType"
             android:id="@+id/time_divider">
 
 
@@ -189,22 +85,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:text="N/A"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/bus_travel_hrs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="N/A"/>
-
 
             </LinearLayout>
 

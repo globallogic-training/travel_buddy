@@ -25,14 +25,17 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class FlightSearchRepository {
 
     private AirportService airportService;
+    private FlightService flightService;
 
     @Inject
-    public FlightSearchRepository(AirportService airportService) {
+    public FlightSearchRepository(AirportService airportService, FlightService flightService) {
         this.airportService = airportService;
+        this.flightService = flightService;
     }
 
     public LiveData<List<Datum>> getAirportLists(String value){
@@ -93,17 +96,42 @@ public class FlightSearchRepository {
         return data;
     }
 
-    public LiveData<Data> getFlights(String value){
-        final MutableLiveData<Data> data = new MutableLiveData<>();
-        airportService.getFlights(value)
-                .enqueue(new Callback<Data>() {
+    public LiveData<Map<String, Object>> getFlights(String flyFrom, String to, String dateFrom, String dateTo){
+        final MutableLiveData<Map<String, Object>> data = new MutableLiveData<>();
+
+        flightService.getFlights(flyFrom, to, dateFrom, dateTo)
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<Data> call, Response<Data> response) {
-                        data.setValue(response.body());
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.body() != null && response.code() == 200) {
+                            String res = null;
+                            try {
+                                res = response.body().string();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(res);
+                                Map<String,Object> flightData =  new ObjectMapper().readValue(String.valueOf(jsonObject), Map.class);
+                                data.setValue(flightData);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (JsonParseException e) {
+                                e.printStackTrace();
+                            } catch (JsonMappingException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println("Map");
+                        }else{
+                            data.setValue(null);
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<Data> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d("error", t.toString());
                         data.setValue(null);
                     }
                 });

@@ -3,6 +3,7 @@ package com.challenge.travel_buddy.flight.di;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.challenge.travel_buddy.flight.services.repository.AirportService;
+import com.challenge.travel_buddy.flight.services.repository.FlightService;
 import com.challenge.travel_buddy.flight.viewmodel.AiportModelFactory;
 
 import dagger.Module;
@@ -21,6 +22,16 @@ public class AirportActivityModule {
                 .build()
                 .create(AirportService.class);
     }
+
+    @AirportActivityScope
+    @Provides
+    FlightService provideFlightService() {
+        return new Retrofit.Builder().baseUrl("https://api.skypicker.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(FlightService.class);
+    }
+
 
     @AirportActivityScope
     @Provides

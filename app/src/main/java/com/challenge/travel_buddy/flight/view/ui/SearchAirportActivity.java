@@ -109,8 +109,8 @@ public class SearchAirportActivity extends AppCompatActivity {
     public static void setJourneyDate(DatePicker view, int year, int month, int day){
         Date date1;
         date = year+"-"+(month+1)+"-"+day;
-        avail_date = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month+1) : (month+1))+ "" + year;
-        endDate = (day < 10 ? "0" + (day) : (day)) + "" + (month < 10 ? "0" + (month) : (month))+ "" + (year+1);
+        avail_date = (day < 10 ? "0" + (day) : (day)) + "/" + (month < 10 ? "0" + (month+1) : (month+1))+ "/" + year;
+        endDate = avail_date;
         journeyDateValue1.setText(day+"/"+(month+1)+"/"+year);
     }
 

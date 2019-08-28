@@ -52,13 +52,13 @@ public class ExampleInstrumentedTest {
         sleep(2,SECONDS);
 
         clickOn(R.id.journey_date_value1);
-        setDateOnPicker(2019, 8, 20);
+        setDateOnPicker(2019, 8, 29);
         sleep(2,SECONDS);
 
         clickOn(R.id.search_btn1);
         sleep(10,SECONDS);
 
-        assertListItemCount(R.id.trainListRV, 10);
+        assertListItemCount(R.id.trainListRV, 8);
         sleep(3,SECONDS);
 
     }
@@ -81,13 +81,13 @@ public class ExampleInstrumentedTest {
         sleep(2,SECONDS);
 
         clickOn(R.id.journey_date_value1);
-        setDateOnPicker(2019, 8, 20);
+        setDateOnPicker(2019, 8, 29);
         sleep(2,SECONDS);
 
         clickOn(R.id.search_btn1);
         sleep(30,SECONDS);
 
-        assertListItemCount(R.id.busListRV, 14);
+        assertListItemCount(R.id.busListRV, 20);
         sleep(3,SECONDS);
 
     }

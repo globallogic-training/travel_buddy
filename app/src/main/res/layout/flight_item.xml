@@ -34,20 +34,6 @@
             android:id="@+id/duration"
             android:textStyle="bold"
             />
-
-        <TextView
-            android:id="@+id/busType"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_below="@+id/airlinesName"
-            android:layout_marginEnd="10dp"
-            android:paddingBottom="5dp"
-            android:layout_marginStart="10dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="N/A"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            />
         
 
         <LinearLayout
@@ -55,7 +41,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingVertical="10dp"
-            android:layout_below="@+id/busType"
+            android:layout_below="@+id/airlinesName"
             android:id="@+id/time_divider">
 
 

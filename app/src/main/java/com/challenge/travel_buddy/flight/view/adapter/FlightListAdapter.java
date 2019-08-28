@@ -36,13 +36,15 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
     @Override
     public void onBindViewHolder(@NonNull FlightItemVH holder, int position) {
         Map<String, Object> model = flightList.get(position);
-        holder.depFrom.setText((String) model.get("cityFrom"));
-        holder.arrTo.setText((String) model.get("cityTo"));
-        holder.flightCost.setText(""+ ( (int) model.get("price")));
-        holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
-        holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
-        holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
-        holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
+        if(model != null){
+            holder.depFrom.setText((String) model.get("cityFrom"));
+            holder.arrTo.setText((String) model.get("cityTo"));
+            holder.flightCost.setText(""+ ( (int) model.get("price")));
+            holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
+            holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
+            holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
+            holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
+        }
     }
 
     @Override
@@ -59,6 +61,10 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
                 return "Air India";
             case "6E":
                 return "Indigo";
+            case "SG":
+                return "Singapore Airlines";
+            case "I5":
+                return "Air Asia";
                 default:
                     return "Undefined";
         }

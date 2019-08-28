@@ -67,6 +67,9 @@ public class BusPointRepository {
                         if(response.body() != null && response.body().getInv().size() > 0){
                             data.setValue(response.body().getInv());
                         }
+                        else{
+                            data.setValue(null);
+                        }
                     }
 
                     @Override

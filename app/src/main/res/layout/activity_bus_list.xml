@@ -6,32 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".train.trainsearch.view.ui.TrainSearch">
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container_bus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchFor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/best_result_linearLayout"
+        >
+
+        <!-- Adding 5 rows of placeholders -->
+        <LinearLayout
+            android:id="@+id/shi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/busListRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/best_bus_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shimmer_view_container_bus"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         />
 
-    <ProgressBar
+    <LinearLayout
+        android:id="@+id/noResult_bus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bus_list_progressBar"
+        android:layout_height="match_parent"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/nodataicon_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_data_found"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/noDataTv_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Opps!.. No trains found on this route. "
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchFor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        >
+
+        <Button
+            android:id="@+id/prev_day_btn_bus"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/ic_arrow_back_black_24dp"
+            android:paddingRight="-3dp"
+            />
+
+        <TextView
+            android:id="@+id/src_dest_top_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:text="From - To"
+            android:gravity="center_horizontal"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:id="@+id/travel_date_top_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:text="dd-MMM-yyyy"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/next_day_btn_bus"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_arrow_forward_black_24dp"
+            android:paddingLeft="-3dp"
+            />
+    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/best_bus_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="132dp"
         android:layout_marginStart="8dp"
@@ -42,51 +140,91 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/busListRV"
         android:padding="3dp">
 
-        <ProgressBar
-            android:id="@+id/best_bus_progress"
-            style="?android:attr/preferenceInformationStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:indeterminateTint="#ffffff"
-            android:layout_centerInParent="true" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/best_bus_progress"
+                style="?android:attr/preferenceInformationStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:indeterminateTint="#ffffff"
+                android:layout_centerInParent="true" />
 
             <TextView
-                android:id="@+id/busName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Fetching availability for upcoming days."
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingBottom="5dp"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:orientation="horizontal"
+                android:id="@+id/seats_layout"
+                >
 
-            <TextView
-                android:id="@+id/busRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/busName"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_marginEnd="10dp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/busName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="0.9"
+                    android:paddingRight="5dp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textColor="@android:color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/busRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/busName"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="5dp"
+                    android:layout_weight="0.1"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/bus_type_layout"
+            android:layout_below="@+id/seats_layout"
+            >
 
             <TextView
                 android:id="@+id/busType"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_below="@+id/busName"
-                android:layout_marginEnd="10dp"
                 android:paddingBottom="5dp"
                 android:layout_marginStart="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:layout_weight="0.9"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"
                 />
 
             <TextView
@@ -94,27 +232,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignRight="@+id/busType"
-                android:layout_below="@+id/busRating"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_marginEnd="10dp"
                 android:paddingBottom="5dp"
-                android:layout_marginStart="10dp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignBottom="@id/busType"
+                android:paddingStart="15dp"
+                android:layout_weight="0.1"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 />
+
+
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="0dp"
-                android:paddingVertical="10dp"
-                android:layout_below="@id/busType"
+                android:paddingVertical="5dp"
+                android:layout_below="@id/bus_type_layout"
                 android:id="@+id/baselinear"
                 >
 
@@ -136,7 +272,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:paddingTop="0dp"
-                            android:text="Total Seats : "
+                            android:textColor="@android:color/white"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <TextView
@@ -144,6 +280,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="0dp"
+                            android:textColor="@android:color/white"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textStyle="bold"/>
 
@@ -177,7 +314,7 @@
                             android:id="@+id/total_window_seats_lbl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Window Seats : "
+                            android:textColor="@android:color/white"
                             android:paddingTop="0dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -186,6 +323,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="0dp"
+                            android:textColor="@android:color/white"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textStyle="bold" />
 
@@ -195,20 +333,12 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignBottom="@id/baselinear"
-                android:id="@+id/avail_devider"
-                />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@id/avail_devider"
-                android:paddingVertical="10dp"
+                android:layout_below="@id/baselinear"
+                android:paddingVertical="5dp"
                 android:id="@+id/time_divider">
 
 
@@ -216,13 +346,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="2">
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/bus_departure_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
+                        android:textColor="@android:color/white"
                         />
 
                 </LinearLayout>
@@ -230,7 +361,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="|"
+                    android:id="@+id/bus_time_divider"
+                    android:textColor="@android:color/white"
                     />
 
                 <LinearLayout
@@ -244,59 +376,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
-                        android:text="N/A"/>
+                        android:textColor="@android:color/white"
+                        />
 
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_below="@id/time_divider"-->
-                <!--android:paddingVertical="3dp">-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_weight="1.6"-->
-                    <!--&gt;-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/bus_bp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="N/A"-->
-                        <!--android:ellipsize="end"-->
-                        <!--android:maxLines="1"/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="|"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/bus_dp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingLeft="10dp"-->
-                        <!--android:text="N/A"-->
-                        <!--android:ellipsize="end"-->
-                        <!--android:maxLines="1"-->
-                        <!--/>-->
-
-                <!--</LinearLayout>-->
-
-               <!---->
-            <!--</LinearLayout>-->
-
         </RelativeLayout>
-
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

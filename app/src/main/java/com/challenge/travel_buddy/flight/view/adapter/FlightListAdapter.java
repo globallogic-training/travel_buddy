@@ -42,9 +42,25 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
             holder.flightCost.setText(""+ ( (int) model.get("price")));
             holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
             holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
-            holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
-            holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
+            holder.depTime.setText("Dep: "+Utils.epochToString( ""+model.get("aTime")));
+            holder.arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
+            if(((List)model.get("route")).size() == 2 ){
+                List<Map<String,Object>> routeList = (List)model.get("route");
+                if(((String)routeList.get(0).get("cityTo")).equals((String) routeList.get(1).get("cityFrom"))){
+                    holder.journeyStop.setText(model.get("cityFrom")+" -> "+(String)routeList.get(0).get("cityTo")+" -> "+model.get("cityTo")+ "   "+((int)routeList.size()-1)+" stop");
+                    holder.journeyStop.setVisibility(View.VISIBLE);
+                }
+            }else if(((List)model.get("route")).size() == 3){
+                List<Map<String,Object>> routeList = (List)model.get("route");
+                if(((String)routeList.get(0).get("cityTo")).equals((String) routeList.get(1).get("cityFrom"))
+                    & ((String)routeList.get(1).get("cityTo")).equals((String) routeList.get(2).get("cityFrom"))){
+                    holder.journeyStop.setText(model.get("cityFrom")+" -> "+(String)routeList.get(0).get("cityTo")+" -> "+
+                            (String)routeList.get(1).get("cityTo")+" -> "+model.get("cityTo")+ "   "+((int)routeList.size()-1)+" stop");
+                    holder.journeyStop.setVisibility(View.VISIBLE);
+                }
+            }
         }
+
     }
 
     @Override
@@ -65,6 +81,22 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
                 return "Singapore Airlines";
             case "I5":
                 return "Air Asia";
+            case "IX":
+                return "Air India Express";
+            case "G9":
+                return "Air Arabia";
+            case "FZ":
+                return "FlyDubai";
+            case "WY":
+                return "Omnar Air";
+            case "UK":
+                return "Airlines UK";
+            case "EK":
+                return "Emirates";
+            case "GF":
+                return "Gulf Air";
+            case "HM":
+                return "Air Seychelles";
                 default:
                     return "Undefined";
         }

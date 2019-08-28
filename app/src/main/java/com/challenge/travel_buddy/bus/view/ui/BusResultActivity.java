@@ -84,6 +84,7 @@ public class BusResultActivity extends AppCompatActivity {
     public TextView noDataTv;
     public ImageView nodataicon;
     public RelativeLayout best_bus_linearLayout;
+    private TextView busLoaderText;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -137,6 +138,7 @@ public class BusResultActivity extends AppCompatActivity {
         noDataTv = findViewById(R.id.noDataTv_bus);
         nodataicon = findViewById(R.id.nodataicon_bus);
         best_bus_linearLayout = findViewById(R.id.best_bus_linearLayout);
+        busLoaderText = findViewById(R.id.bus_loading_text);
 
         src_dest_top_bus.setText(Helper.getBusStationName(fromStation) + " -> "+ Helper.getBusStationName(toStation));
         travel_date_top_bus.setText(Helper.getDashDate(availDate));
@@ -301,6 +303,7 @@ public class BusResultActivity extends AppCompatActivity {
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
         best_bus_linearLayout.setVisibility(View.VISIBLE);
+        busLoaderText.setVisibility(View.GONE);
 
     }
 

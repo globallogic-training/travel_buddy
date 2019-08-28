@@ -19,6 +19,7 @@ public class FlightItemVH extends RecyclerView.ViewHolder implements View.OnClic
     public TextView arrTo;
     public TextView airlinesName;
     public TextView duration;
+    public TextView journeyStop;
 
 
     public FlightItemVH(@NonNull View itemView) {
@@ -32,6 +33,7 @@ public class FlightItemVH extends RecyclerView.ViewHolder implements View.OnClic
         arrTime = itemView.findViewById(R.id.bus_arrival_time);
         airlinesName = itemView.findViewById(R.id.airlinesName);
         duration = itemView.findViewById(R.id.duration);
+        journeyStop = itemView.findViewById(R.id.journey_stop);
 
     }
 

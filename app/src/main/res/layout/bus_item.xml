@@ -14,36 +14,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/busName"
+        <ImageView
+            android:id="@+id/list_bus_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/bus"
+            />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="N/A"
-            android:paddingBottom="5dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:orientation="horizontal"
+            android:id="@+id/bus_name_layout"
+            android:layout_toRightOf="@+id/list_bus_icon"
+            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/busName"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:layout_marginEnd="10dp"
-            android:text="N/A"
-            android:id="@+id/busRating"
-            android:textStyle="bold"
-            />
+            <TextView
+                android:id="@+id/busName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="N/A"
+                android:paddingBottom="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_weight="1.0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/background_dark"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/busName"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_marginEnd="2dp"
+                android:text="N/A"
+                android:id="@+id/busRating"
+                android:textStyle="bold"
+                android:textColor="@android:color/background_dark"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_star_black_16dp"
+                android:paddingEnd="5dp"
+                />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/busType"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_below="@+id/busName"
+            android:layout_below="@+id/bus_name_layout"
             android:layout_marginEnd="10dp"
             android:paddingBottom="5dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="45dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="N/A"
@@ -167,7 +199,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <TextView
                     android:id="@+id/bus_arrival_time"

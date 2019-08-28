@@ -27,6 +27,17 @@ public class Helper {
         return orignalDate;
     }
 
+    public static Date getDateFromDashDate(String date){
+        SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy");
+        Date orignalDate = null;
+        try{
+            orignalDate =  formatter.parse(date);
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+        return orignalDate;
+    }
+
     /* Function to convert date string to given date string format */
     public static String getDateFromTimeStamp(String timeStamp){
         Date orignalDate = null;
@@ -91,6 +102,12 @@ public class Helper {
         return shortName.substring(0, shortName.length() -1);
     }
 
+    public static String getBusStationName(String stationName){
+        String[] shortNameArray = stationName.split("\\(");
+        String shortName = shortNameArray.length > 1 ? shortNameArray[0] : stationName;
+        return shortName;
+    }
+
     public static String getDashDate(String date){
         Date formateDate = getDateFromString(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyy");
@@ -126,6 +143,23 @@ public class Helper {
             e.printStackTrace();
         }
         return formattedDate;
+    }
+
+    public static String getIncBusDate(String date, boolean isInc){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("d-MMM-yyyy");
+        String outputDate = "";
+        try{
+            Date formattedDate = inputFormat.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(formattedDate);
+            calendar.add(Calendar.DATE, isInc ? 1 : -1);
+            outputDate = inputFormat.format(calendar.getTime());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return outputDate;
+
     }
 
 }

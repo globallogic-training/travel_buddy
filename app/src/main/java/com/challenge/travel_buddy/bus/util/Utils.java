@@ -39,4 +39,10 @@ public class Utils {
         Integer minutes = (mins%60);
         return ""+ hrs + "h " + minutes + "m";
     }
+
+    public static String epochToString(String time){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String date = sdf.format(new Date(Long.parseLong(time) * 1000l));
+        return date;
+    }
 }

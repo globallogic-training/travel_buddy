@@ -23,6 +23,7 @@ public class AiportModelFactory implements ViewModelProvider.Factory {
 
         // View models cannot be injected directly because they won't be bound to the owner's view model scope.
         creators.put(AirportViewModel.class, () -> viewModelSubComponent.airportViewModel());
+        creators.put(FlightListViewModel.class, () -> viewModelSubComponent.flightListViewModel());
     }
 
     @Override

@@ -286,8 +286,13 @@ public class TrainSearch extends AppCompatActivity {
         next_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trainListRecycler.setVisibility(View.GONE);
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
                 String increamentedDate = Helper.getIncreamentedDate(availDate, true);
                 viewModel.setSerchDate(increamentedDate);
+                nodataicom.setVisibility(View.GONE);
+                setPrevBtnFunctionality(increamentedDate);
                 performNextPrev(increamentedDate);
             }
         });
@@ -295,8 +300,13 @@ public class TrainSearch extends AppCompatActivity {
         prev_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trainListRecycler.setVisibility(View.GONE);
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
                 String decrementedDate = Helper.getIncreamentedDate(availDate, false);
                 viewModel.setSerchDate(decrementedDate);
+                nodataicom.setVisibility(View.GONE);
+                setPrevBtnFunctionality(decrementedDate);
                 performNextPrev(decrementedDate);
             }
         });

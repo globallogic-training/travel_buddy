@@ -2,20 +2,26 @@ package com.challenge.travel_buddy.train.trainsearch.view.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
@@ -29,8 +35,11 @@ import com.challenge.travel_buddy.train.trainsearch.services.model.Train_Number_
 import com.challenge.travel_buddy.train.trainsearch.view.adapter.TrainListAdapter;
 import com.challenge.travel_buddy.train.trainsearch.view.ui.helper.Helper;
 import com.challenge.travel_buddy.train.trainsearch.viewmodal.TrainListViewModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -75,13 +84,21 @@ public class TrainSearch extends AppCompatActivity {
     public TextView best_SL_date;
     public TextView best_3A_date;
     public LinearLayout progressBar;
-    public LinearLayout trainListProgressBar;
 
     public RelativeLayout bestTrainSection;
     public TextView noDataTv;
     public ImageView nodataicom;
 
+    public TextView src_dest_top;
+    public TextView travel_date_top;
+    public Button next_day_btn;
+    public Button prev_day_btn;
 
+    private ShimmerFrameLayout mShimmerViewContainer;
+
+    public LiveData<String> searchDate;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +121,7 @@ public class TrainSearch extends AppCompatActivity {
         bestWithClass3A = new HashMap<>();
         bestSLDate = new HashMap<>();
         best3aDate = new HashMap<>();
+        searchDate = new MutableLiveData<>();
 
         best_SL_trainNumber = findViewById(R.id.best_SL_trainNumber);
         best_SL_trainName = findViewById(R.id.best_SL_trainName);
@@ -114,7 +132,6 @@ public class TrainSearch extends AppCompatActivity {
         best_SL_date = findViewById(R.id.best_SL_date);
         best_3A_date = findViewById(R.id.best_3A_date);
         progressBar = findViewById(R.id.best_avail_progress);
-        trainListProgressBar = findViewById(R.id.trainListProgress);
 
         best_SL_lbl = findViewById(R.id.best_SL_lbl);
         best_SL_date_lbl = findViewById(R.id.best_SL_date_lbl);
@@ -125,9 +142,16 @@ public class TrainSearch extends AppCompatActivity {
         noDataTv = findViewById(R.id.noDataTv);
         nodataicom = findViewById(R.id.nodataicom);
 
+        src_dest_top = findViewById(R.id.src_dest_top);
+        travel_date_top = findViewById(R.id.travel_date_top);
+        next_day_btn = findViewById(R.id.next_day_btn);
+        prev_day_btn = findViewById(R.id.prev_day_btn);
 
-        progressBar.setVisibility(View.VISIBLE);
-        trainListProgressBar.setVisibility(View.VISIBLE);
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
+
+        src_dest_top.setText(Helper.getShortStationName(fromStationCode) + " -> "+ Helper.getShortStationName(toStationCode));
+        travel_date_top.setText(Helper.getDashDate(availDate));
 
         TrainSearchActivityComponent trainSearchActivityComponent = DaggerTrainSearchActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
         trainSearchActivityComponent.inject(this);
@@ -135,22 +159,36 @@ public class TrainSearch extends AppCompatActivity {
         final TrainListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(TrainListViewModel.class);
 
-        viewModel.getTrainList(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), travelDate).observe(this, new Observer<Train>() {
-            @Override
-            public void onChanged(@Nullable Train train) {
-                fetchedTrains = train;
-                isTrainsAvailable = true;
-                setTrainAndAvailToList();
-            }
-        });
+        viewModel.setSerchDate(availDate);
 
-        viewModel.getAvailability(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), availDate)
-        .observe(this, new Observer<Map <String, Map<String, Available_Status>>>() {
+        setPrevBtnFunctionality(availDate);
+
+        searchDate = viewModel.getSearchDate();
+
+        searchDate.observe(this, new Observer<String>() {
             @Override
-            public void onChanged(@Nullable Map <String, Map<String, Available_Status>> availabilityModels) {
-                availableSeats = availabilityModels;
-                isSeatsAvilable = true;
-                setTrainAndAvailToList();
+            public void onChanged(String changedDate) {
+                String incTopDashedDate = Helper.formatTravelDate(changedDate);
+                viewModel.getTrainList(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), incTopDashedDate).observe(TrainSearch.this, new Observer<Train>() {
+                    @Override
+                    public void onChanged(@Nullable Train train) {
+                        fetchedTrains = train;
+                        isTrainsAvailable = true;
+                        setTrainAndAvailToList(changedDate);
+                        availDate = changedDate;
+                    }
+                });
+
+                viewModel.getAvailability(Helper.getStationCode(fromStationCode), Helper.getStationCode(toStationCode), changedDate)
+                        .observe(TrainSearch.this, new Observer<Map <String, Map<String, Available_Status>>>() {
+                            @Override
+                            public void onChanged(@Nullable Map <String, Map<String, Available_Status>> availabilityModels) {
+                                availableSeats = availabilityModels;
+                                isSeatsAvilable = true;
+                                setTrainAndAvailToList(changedDate);
+                                availDate = changedDate;
+                            }
+                        });
             }
         });
 
@@ -244,6 +282,62 @@ public class TrainSearch extends AppCompatActivity {
 
                 });
         System.out.println("In Activity");
+
+        next_day_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trainListRecycler.setVisibility(View.GONE);
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
+                String increamentedDate = Helper.getIncreamentedDate(availDate, true);
+                viewModel.setSerchDate(increamentedDate);
+                nodataicom.setVisibility(View.GONE);
+                setPrevBtnFunctionality(increamentedDate);
+                performNextPrev(increamentedDate);
+            }
+        });
+
+        prev_day_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trainListRecycler.setVisibility(View.GONE);
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
+                String decrementedDate = Helper.getIncreamentedDate(availDate, false);
+                viewModel.setSerchDate(decrementedDate);
+                nodataicom.setVisibility(View.GONE);
+                setPrevBtnFunctionality(decrementedDate);
+                performNextPrev(decrementedDate);
+            }
+        });
+
+        trainListRecycler.setOnTouchListener(new OnSwipeTouchListener(this){
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                String increamentedDate = Helper.getIncreamentedDate(availDate, true);
+                viewModel.setSerchDate(increamentedDate);
+                performNextPrev(increamentedDate);
+                String dashedIncDate = Helper.getDashDate(increamentedDate);
+                Toast.makeText(TrainSearch.this, "Results for : "+ dashedIncDate, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Date date = Helper.getDateFromString(availDate);
+                if(date.getTime() > System.currentTimeMillis()){
+                    String decrementedDate = Helper.getIncreamentedDate(availDate, false);
+                    viewModel.setSerchDate(decrementedDate);
+                    performNextPrev(decrementedDate);
+                    String dashedDecrDate = Helper.getDashDate(decrementedDate);
+                    Toast.makeText(TrainSearch.this, "Results for : "+ dashedDecrDate, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(TrainSearch.this, "Sorry!.. No train results for past date.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -252,13 +346,15 @@ public class TrainSearch extends AppCompatActivity {
         return true;
     }
 
-    public void setTrainAndAvailToList() {
+    public void setTrainAndAvailToList(String date) {
         ArrayList<TrainDataModel> serchedTrainList = new ArrayList<>();
 
         if( fetchedTrains == null) {
             nodataicom.setVisibility(View.VISIBLE);
             noDataTv.setVisibility(View.VISIBLE);
-            trainListProgressBar.setVisibility(View.GONE);
+            mShimmerViewContainer.stopShimmerAnimation();
+            mShimmerViewContainer.setVisibility(View.GONE);
+
         }
         if(isSeatsAvilable && isTrainsAvailable && fetchedTrains != null){
 
@@ -276,9 +372,12 @@ public class TrainSearch extends AppCompatActivity {
             fetchedTrains.getData().setTrainsBetweenStations(serchedTrainList);
             adapter = new TrainListAdapter(TrainSearch.this, fetchedTrains.getData().getTrainsBetweenStations());
             trainListRecycler.setAdapter(adapter);
+            trainListRecycler.setVisibility(View.VISIBLE);
             isSeatsAvilable = false;
             isTrainsAvailable = false;
-            trainListProgressBar.setVisibility(View.GONE);
+            travel_date_top.setText(Helper.getDashDate(date));
+            mShimmerViewContainer.stopShimmerAnimation();
+            mShimmerViewContainer.setVisibility(View.GONE);
             nodataicom.setVisibility(View.GONE);
             noDataTv.setVisibility(View.GONE);
         }
@@ -297,4 +396,16 @@ public class TrainSearch extends AppCompatActivity {
         }
     }
 
+    public void setPrevBtnFunctionality(String dateOfSearch){
+        Date date = Helper.getDateFromString(dateOfSearch);
+        prev_day_btn.setEnabled(date.getTime() > System.currentTimeMillis());
+    }
+
+    public void performNextPrev(String date){
+        trainListRecycler.setVisibility(View.GONE);
+        mShimmerViewContainer.setVisibility(View.VISIBLE);
+        mShimmerViewContainer.startShimmerAnimation();
+        nodataicom.setVisibility(View.GONE);
+        setPrevBtnFunctionality(date);
+    }
 }

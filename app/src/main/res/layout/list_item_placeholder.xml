@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    >
+
+    <View
+        android:id="@+id/name"
+        android:layout_width="150dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="#dddddd"
+        android:layout_marginEnd="80dp"/>
+
+    <View
+        android:id="@+id/number"
+        android:layout_width="150dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="#dddddd"
+        android:layout_toRightOf="@id/name"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginRight="100dp"
+            android:background="#dddddd" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="15dp"
+            android:background="#dddddd" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginRight="160dp"
+            android:layout_marginTop="15dp"
+            android:background="#dddddd" />
+
+    </LinearLayout>
+
+</RelativeLayout>

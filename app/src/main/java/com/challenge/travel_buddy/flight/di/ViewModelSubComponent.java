@@ -1,8 +1,7 @@
 package com.challenge.travel_buddy.flight.di;
 
-import com.challenge.travel_buddy.bus.viewmodal.BusPointViewModel;
-import com.challenge.travel_buddy.flight.services.model.Airport;
 import com.challenge.travel_buddy.flight.viewmodel.AirportViewModel;
+import com.challenge.travel_buddy.flight.viewmodel.FlightListViewModel;
 
 import dagger.Subcomponent;
 
@@ -13,5 +12,6 @@ public interface ViewModelSubComponent {
         ViewModelSubComponent build();
     }
     AirportViewModel airportViewModel();
+    FlightListViewModel flightListViewModel();
 
 }

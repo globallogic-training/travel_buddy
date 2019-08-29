@@ -1,6 +1,5 @@
 package com.challenge.travel_buddy;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.challenge.travel_buddy.bus.view.ui.SearchBusActivity;

@@ -101,6 +101,15 @@ public class SearchAirportActivity extends AppCompatActivity {
         }
 
     }
+
+    public void onDestinationSwipe(View view){
+        String fromStation = (String) fromStationValue1.getText();
+        if(!fromStation.equals("select from") && !toStationValue1.getText().equals("select to")){
+            fromStationValue1.setText(toStationValue1.getText());
+            toStationValue1.setText(fromStation);
+        }
+    }
+
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");

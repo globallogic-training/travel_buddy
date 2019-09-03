@@ -264,8 +264,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/total_bus_seats_lbl"
@@ -273,28 +273,21 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:paddingTop="0dp"
-                            android:textColor="@android:color/white"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/white" />
 
                         <TextView
                             android:id="@+id/total_bus_seats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="0dp"
-                            android:textColor="@android:color/white"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textStyle="bold"/>
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="0dp"
-                    android:paddingTop="0dp"
-                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="0dp"

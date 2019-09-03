@@ -8,41 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_weight="1.0"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:orientation="horizontal">
-
-            <!--<Button-->
-            <!--android:id="@+id/flight_btn"-->
-            <!--android:text="Flight"-->
-            <!--android:textSize="25sp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="@color/colorPrimary"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:padding="20dip"-->
-            <!--android:background="#FFFFFF"-->
-            <!--android:layout_marginTop="20dip"-->
-            <!--android:layout_marginEnd="1dp"-->
-            <!--android:layout_weight="1.0"/>-->
-
-            <!--<Button-->
-            <!--android:id="@+id/train_btn"-->
-            <!--android:text="Train"-->
-            <!--android:textSize="25sp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="@color/colorPrimary"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:padding="20dip"-->
-            <!--android:layout_marginTop="20dip"-->
-            <!--android:background="#FFFFFF"-->
-            <!--android:layout_weight="1.0"/>-->
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="0.3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +23,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="1.0"
                 android:background="#FFFFFF"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -61,30 +35,16 @@
                     android:textColor="#000000"
                     android:textSize="30sp"
                     android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/fromStationValue1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:background="#FFFFFF"
-                    android:padding="20dip"
-                    android:text="select from"
-                    android:textColor="#F19932"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="1dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1.0"
                 android:background="#FFFFFF"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="1dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -95,27 +55,84 @@
                     android:textColor="#000000"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-                <Button
-                    android:id="@+id/toStationValue1"
+            <Button
+                android:id="@+id/swipeButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/round_button"
+                android:drawableStart="@drawable/ic_swap_horiz_white_24dp"
+                android:elevation="7dp"
+                android:onClick="onDestinationSwipe"
+                android:paddingLeft="8dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
                     android:background="#FFFFFF"
-                    android:padding="20dip"
-                    android:text="Select to"
-                    android:textColor="#F19932"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
+                    <Button
+                        android:id="@+id/fromStationValue1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:background="#FFFFFF"
+                        android:text="select from"
+                        android:textColor="#F19932"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="20dip"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="1dp"
+                    android:layout_weight="1.0"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/toStationValue1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:background="#FFFFFF"
+                        android:drawablePadding="10dip"
+                        android:text="Select to"
+                        android:textColor="#F19932"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="20dip"/>
+
+
+
+
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
+        </FrameLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             android:orientation="vertical">
 
             <Button

@@ -81,6 +81,14 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    public void onDestinationSwipe(View view){
+        String fromStation = (String) fromStationValue1.getText();
+        if(!fromStation.equals("select from") && !toStationValue1.getText().equals("Select to")){
+            fromStationValue1.setText(toStationValue1.getText());
+            toStationValue1.setText(fromStation);
+        }
+    }
+
     private void setStationSearchListner(boolean isFrom) {
         Intent intent = new Intent(this,StationListActivity.class);
         intent.putExtra("isFrom", isFrom);

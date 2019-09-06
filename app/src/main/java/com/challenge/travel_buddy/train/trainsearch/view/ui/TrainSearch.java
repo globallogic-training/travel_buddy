@@ -151,7 +151,7 @@ public class TrainSearch extends AppCompatActivity {
         mShimmerViewContainer.startShimmerAnimation();
 
         src_dest_top.setText(Helper.getShortStationName(fromStationCode) + " -> "+ Helper.getShortStationName(toStationCode));
-        travel_date_top.setText(Helper.getDashDate(availDate));
+        travel_date_top.setText(Helper.getDashFromStringDate(availDate));
 
         TrainSearchActivityComponent trainSearchActivityComponent = DaggerTrainSearchActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
         trainSearchActivityComponent.inject(this);
@@ -318,7 +318,7 @@ public class TrainSearch extends AppCompatActivity {
                 String increamentedDate = Helper.getIncreamentedDate(availDate, true);
                 viewModel.setSerchDate(increamentedDate);
                 performNextPrev(increamentedDate);
-                String dashedIncDate = Helper.getDashDate(increamentedDate);
+                String dashedIncDate = Helper.getDashFromStringDate(increamentedDate);
                 Toast.makeText(TrainSearch.this, "Results for : "+ dashedIncDate, Toast.LENGTH_SHORT).show();
             }
 
@@ -330,7 +330,7 @@ public class TrainSearch extends AppCompatActivity {
                     String decrementedDate = Helper.getIncreamentedDate(availDate, false);
                     viewModel.setSerchDate(decrementedDate);
                     performNextPrev(decrementedDate);
-                    String dashedDecrDate = Helper.getDashDate(decrementedDate);
+                    String dashedDecrDate = Helper.getDashFromStringDate(decrementedDate);
                     Toast.makeText(TrainSearch.this, "Results for : "+ dashedDecrDate, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -375,7 +375,7 @@ public class TrainSearch extends AppCompatActivity {
             trainListRecycler.setVisibility(View.VISIBLE);
             isSeatsAvilable = false;
             isTrainsAvailable = false;
-            travel_date_top.setText(Helper.getDashDate(date));
+            travel_date_top.setText(Helper.getDashFromStringDate(date));
             mShimmerViewContainer.stopShimmerAnimation();
             mShimmerViewContainer.setVisibility(View.GONE);
             nodataicom.setVisibility(View.GONE);

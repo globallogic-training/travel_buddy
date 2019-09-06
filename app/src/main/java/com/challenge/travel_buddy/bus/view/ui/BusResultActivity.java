@@ -141,7 +141,7 @@ public class BusResultActivity extends AppCompatActivity {
         busLoaderText = findViewById(R.id.bus_loading_text);
 
         src_dest_top_bus.setText(Helper.getBusStationName(fromStation) + " -> "+ Helper.getBusStationName(toStation));
-        travel_date_top_bus.setText(Helper.getDashDate(availDate));
+        travel_date_top_bus.setText(Helper.getDashFromStringDate(availDate));
 
         mShimmerViewContainer = findViewById(R.id.shimmer_view_container_bus);
         mShimmerViewContainer.startShimmerAnimation();
@@ -224,7 +224,7 @@ public class BusResultActivity extends AppCompatActivity {
                 String increamentedDate = Helper.getIncBusDate(travelDate, true);
                 viewModel.setSerchDate(increamentedDate);
                 performNextPrev(increamentedDate);
-                String dashedIncDate = Helper.getDashDate(increamentedDate);
+                String dashedIncDate = Helper.getDashFromStringDate(increamentedDate);
                 Toast.makeText(BusResultActivity.this, "Results for : "+ dashedIncDate, Toast.LENGTH_SHORT).show();
             }
 
@@ -236,7 +236,7 @@ public class BusResultActivity extends AppCompatActivity {
                     String decrementedDate = Helper.getIncBusDate(travelDate, false);
                     viewModel.setSerchDate(decrementedDate);
                     performNextPrev(decrementedDate);
-                    String dashedDecrDate = Helper.getDashDate(decrementedDate);
+                    String dashedDecrDate = Helper.getDashFromStringDate(decrementedDate);
                     Toast.makeText(BusResultActivity.this, "Results for : "+ dashedDecrDate, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -288,10 +288,7 @@ public class BusResultActivity extends AppCompatActivity {
         total_bus_seats_lbl.setText("Total Seats : ");
         total_window_seats_lbl.setText("Window Seats : ");
         bus_time_divider.setText("|");
-//        bus_bp.setText(invObj.getStdBp());
-//        bus_dp.setText(invObj.getStdDp());
         bus_cost.setText("₹ "+invObj.getMinfr().toString());
-//        busArrivalTime.setText("Arrv Date: "+Utils.formatArrDepTimeWithDate(invObj.getAt()));
         busDepartureTime.setText("Date: "+Utils.formatArrDepTimeWithDate(invObj.getDt()));
         bus_travel_hrs.setText(Utils.converMinsToHrs(invObj.getDuration()));
         if(invObj.getRt().getTotRt() != null)

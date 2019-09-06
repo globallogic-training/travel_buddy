@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -81,7 +82,6 @@ public class FlightSearchRepository {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("Map");
                         }else{
                             data.setValue(null);
                         }
@@ -89,7 +89,6 @@ public class FlightSearchRepository {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d("error", t.toString());
                         data.setValue(null);
                     }
                 });
@@ -107,10 +106,6 @@ public class FlightSearchRepository {
                             String res = null;
                             try {
                                 res = response.body().string();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            try {
                                 JSONObject jsonObject = new JSONObject(res);
                                 Map<String,Object> flightData =  new ObjectMapper().readValue(String.valueOf(jsonObject), Map.class);
                                 data.setValue(flightData);
@@ -123,7 +118,6 @@ public class FlightSearchRepository {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("Map");
                         }else{
                             data.setValue(null);
                         }
@@ -131,7 +125,55 @@ public class FlightSearchRepository {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d("error", t.toString());
+                        data.setValue(null);
+                    }
+                });
+        return data;
+    }
+
+    public LiveData<Map<String, Object>> getCheapestFlight(String flyFrom, String to, String dateFrom, String dateTo){
+        final MutableLiveData<Map<String, Object>> data = new MutableLiveData<>();
+
+        flightService.getFlights(flyFrom, to, dateFrom, dateTo)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.body() != null && response.code() == 200) {
+                            String res = null;
+                            try {
+                                res = response.body().string();
+                                JSONObject jsonObject = new JSONObject(res);
+                                Map<String,Object> flightData =  new ObjectMapper().readValue(String.valueOf(jsonObject), Map.class);
+
+                                List<Map<String, Object>> flights = (List) flightData.get("data");
+                                Map<String,Object> cheapestFlight = flights.get(0);
+                                double minPrice =  flights.get(0).get("price") instanceof Integer ?
+                                        (int) flights.get(0).get("price") : (double) flights.get(0).get("price");
+                                for ( Map<String, Object> flight: flights){
+                                    double tempPrice =  flight.get("price") instanceof Integer ?
+                                            (int) flight.get("price") : (double) flight.get("price");
+                                    if(minPrice > tempPrice){
+                                        minPrice = tempPrice;
+                                        cheapestFlight = flight;
+                                    }
+                                }
+                                data.setValue(cheapestFlight);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (JsonParseException e) {
+                                e.printStackTrace();
+                            } catch (JsonMappingException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            data.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         data.setValue(null);
                     }
                 });

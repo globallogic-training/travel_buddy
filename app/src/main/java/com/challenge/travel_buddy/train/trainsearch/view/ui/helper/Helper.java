@@ -27,6 +27,17 @@ public class Helper {
         return orignalDate;
     }
 
+    public static Date getDateFromSlash(String date){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date orignalDate = null;
+        try{
+            orignalDate =  formatter.parse(date);
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+        return orignalDate;
+    }
+
     public static Date getDateFromDashDate(String date){
         SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy");
         Date orignalDate = null;
@@ -108,8 +119,14 @@ public class Helper {
         return shortName;
     }
 
-    public static String getDashDate(String date){
+    public static String getDashFromStringDate(String date){
         Date formateDate = getDateFromString(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyy");
+        return dateFormat.format(formateDate);
+    }
+
+    public static String getDashFromSlashDate(String date){
+        Date formateDate = getDateFromSlash(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyy");
         return dateFormat.format(formateDate);
     }

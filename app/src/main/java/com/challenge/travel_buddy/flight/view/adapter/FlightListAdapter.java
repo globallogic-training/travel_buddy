@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.bus.util.Utils;
+import com.challenge.travel_buddy.flight.helper.FlightHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,6 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
 
     public FlightListAdapter(Context context, List<Map<String, Object>> flightList) {
         this.flightList = flightList;
-//        this.flightList = flightData.getData().getGoing().getResults();
         this.mContext = context;
     }
 
@@ -40,7 +40,7 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
             holder.depFrom.setText((String) model.get("cityFrom"));
             holder.arrTo.setText((String) model.get("cityTo"));
             holder.flightCost.setText(""+ ( (int) model.get("price")));
-            holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
+            holder.airlinesName.setText(FlightHelper.getAirlinesName((List<String>)model.get("airlines")));
             holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
             holder.depTime.setText("Dep: "+Utils.epochToString( ""+model.get("aTime")));
             holder.arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
@@ -68,38 +68,4 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
         return flightList.size();
     }
 
-    public static String getAirlinesName(List<String> airlines){
-
-        switch (airlines.get(0)){
-            case "G8":
-                return "Go Air";
-            case "AI":
-                return "Air India";
-            case "6E":
-                return "Indigo";
-            case "SG":
-                return "Singapore Airlines";
-            case "I5":
-                return "Air Asia";
-            case "IX":
-                return "Air India Express";
-            case "G9":
-                return "Air Arabia";
-            case "FZ":
-                return "FlyDubai";
-            case "WY":
-                return "Omnar Air";
-            case "UK":
-                return "Airlines UK";
-            case "EK":
-                return "Emirates";
-            case "GF":
-                return "Gulf Air";
-            case "HM":
-                return "Air Seychelles";
-                default:
-                    return "Undefined";
-        }
-
-    }
 }

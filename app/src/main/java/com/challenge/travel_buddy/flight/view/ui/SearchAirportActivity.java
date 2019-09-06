@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.bus.view.ui.BusPointListActivity;
@@ -72,12 +73,17 @@ public class SearchAirportActivity extends AppCompatActivity {
         getWebsite();
     }
     private void callActivityForFlightSearch() {
-        Intent intent = new Intent(this, FlightListActivity.class);
-        intent.putExtra("from", fromStationValue1.getText());
-        intent.putExtra("to", toStationValue1.getText());
-        intent.putExtra("startDate", avail_date);
-        intent.putExtra("endDate", endDate);
-        startActivity(intent);
+        if(!fromStationValue1.getText().equals("select from") && !toStationValue1.getText().equals("Select to") && !journeyDateValue1.getText().equals("Select date")){
+            Intent intent = new Intent(this, FlightListActivity.class);
+            intent.putExtra("from", fromStationValue1.getText());
+            intent.putExtra("to", toStationValue1.getText());
+            intent.putExtra("startDate", avail_date);
+            intent.putExtra("endDate", endDate);
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(this, "Please provide input.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private void setStationSearchListner(boolean isFrom) {

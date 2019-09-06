@@ -6,29 +6,304 @@
     android:layout_height="match_parent"
     tools:context=".train.trainsearch.view.ui.TrainSearch">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container_flight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchFor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/best_result_linearLayout"
+        >
+
+        <!-- Adding 5 rows of placeholders -->
+        <LinearLayout
+            android:id="@+id/shi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+            <include layout="@layout/list_item_placeholder" />
+
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flightListRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
+        app:layout_constraintBottom_toTopOf="@+id/cheapest_flight_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layoutAnimation="@anim/layout_animation_fall_down"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/searchFor" />
 
-    <ProgressBar
+    <LinearLayout
+        android:id="@+id/noResult_flight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/nodataicon_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_data_found"
+            />
+        <TextView
+            android:id="@+id/noDataTv_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Opps!.. No flight found on this route. "
+            android:textColor="@android:color/holo_red_dark"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchFor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        >
+
+        <Button
+            android:id="@+id/prev_day_btn_flight"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/ic_arrow_back_black_24dp"
+            android:paddingRight="-3dp"
+            />
+
+        <TextView
+            android:id="@+id/src_dest_top_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:text="From - To"
+            android:gravity="center_horizontal"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:id="@+id/travel_date_top_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:text="dd-MMM-yyyy"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/next_day_btn_flight"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_arrow_forward_black_24dp"
+            android:paddingLeft="-3dp"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cheapest_flight_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bus_list_progressBar"
-        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#C84ABB4D"
+        android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:id="@+id/best_flight_loader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/best_flight_progress"
+                style="?android:attr/preferenceInformationStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="#ffffff" />
+
+            <TextView
+                android:id="@+id/flight_loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Please wait.. while we search cheapest flight for you."
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/time_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/journey_stop"
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/flight_arrival_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/separtor_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="|"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/flight_departure_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_divider"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/flight_bp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/separtor_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="|"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/flight_dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/flight_cost_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="₹"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/flight_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/journey_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/airlinesName"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/airlinesName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingVertical="5dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/airlinesName"
+            android:layout_marginEnd="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/topDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/airlinesName"
+            android:background="@android:color/darker_gray"
+            android:paddingTop="12dp"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

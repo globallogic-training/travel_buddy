@@ -369,7 +369,9 @@ public class TrainSearch extends AppCompatActivity {
                 }
 
             }
-            fetchedTrains.getData().setTrainsBetweenStations(serchedTrainList);
+            if(serchedTrainList.size() != 0){
+                fetchedTrains.getData().setTrainsBetweenStations(serchedTrainList);
+            }
             adapter = new TrainListAdapter(TrainSearch.this, fetchedTrains.getData().getTrainsBetweenStations());
             trainListRecycler.setAdapter(adapter);
             trainListRecycler.setVisibility(View.VISIBLE);

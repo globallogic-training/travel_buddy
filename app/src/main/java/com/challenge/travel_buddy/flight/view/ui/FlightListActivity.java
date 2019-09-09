@@ -13,15 +13,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+<<<<<<< Updated upstream
 import android.widget.ProgressBar;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
+=======
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.challenge.travel_buddy.MVVMApplication;
+import com.challenge.travel_buddy.R;
+import com.challenge.travel_buddy.bus.util.Utils;
+>>>>>>> Stashed changes
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
 import com.challenge.travel_buddy.flight.view.adapter.FlightListAdapter;
 import com.challenge.travel_buddy.flight.viewmodel.FlightListViewModel;
 
+<<<<<<< Updated upstream
+=======
+import java.util.Date;
+>>>>>>> Stashed changes
 import java.util.List;
 import java.util.Map;
 
@@ -73,8 +88,92 @@ public class FlightListActivity extends AppCompatActivity {
         FlightListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FlightListViewModel.class);
 
+<<<<<<< Updated upstream
 //
         viewModel.getFlightData(trimForAiportCode(source), trimForAiportCode(destination), startDate, endDate).observe(FlightListActivity.this, new Observer<Map<String, Object>>() {
+=======
+        travelDateTop.setText(Helper.getDashFromSlashDate(startDate));
+        viewModel.setSearchDate(startDate);
+
+//        setPrevBtnFunctionality(availDate);
+        searchDate = viewModel.getSearchDate();
+
+        searchDate.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String changedDate) {
+                viewModel.getFlightData(trimForAiportCode(source), trimForAiportCode(destination), changedDate, changedDate).observe(FlightListActivity.this, new Observer<Map<String, Object>>() {
+                    @Override
+                    public void onChanged(Map<String, Object> data) {
+                        if(data != null) {
+                            List<Map<String, Object>> flightList = fetchFlightList(data);
+                            adapter = new FlightListAdapter(FlightListActivity.this, flightList);
+                            flightListRecycler.setAdapter(adapter);
+                            flightListRecycler.setVisibility(View.VISIBLE);
+                            mShimmerFrameLayout.setVisibility(View.GONE);
+                            noResultView.setVisibility(View.GONE);
+                            startDate = changedDate;
+                            travelDateTop.setText(Helper.getDashFromSlashDate(startDate));
+                        }else{
+                            flightListRecycler.setVisibility(View.GONE);
+                            mShimmerFrameLayout.setVisibility(View.GONE);
+                            noResultView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+            }
+        });
+        viewModel.getCheapestFlightData(trimForAiportCode(source), trimForAiportCode(destination), startDate, startDate).observe(this
+                , new Observer<Map<String, Object>>() {
+                    @Override
+                    public void onChanged(Map<String, Object> model) {
+                        List<Map<String,String>> tempRoutes = (List)model.get("route");
+                        depFrom.setText((String) model.get("cityFrom"));
+                        arrTo.setText((String) model.get("cityTo"));
+                        flightCost.setText(""+ ( (int) model.get("price")));
+                        airlinesName.setText(FlightHelper.getAirlinesName((List<String>)model.get("airlines")));
+                        duration.setText("Dur: "+(String) model.get("fly_duration"));
+                        depTime.setText("Dep: "+ Utils.epochToString( ""+model.get("aTime")));
+                        arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
+
+                        int routesSize = tempRoutes.size();
+                        StringBuilder resultantRoute = new StringBuilder();
+                        for(int index = 0 ; index < routesSize; index++){
+                            Map<String, String> routeTemp = tempRoutes.get(index);
+                            if(index == 0){
+                                resultantRoute.append(routeTemp.get("cityFrom"));
+                            }
+                            resultantRoute.append(" -> "+routeTemp.get("cityTo"));
+                            if(index == (routesSize - 1)){
+                                if(routesSize == 1) {
+                                    resultantRoute = new StringBuilder("");
+
+                                }else {
+                                    resultantRoute.append(" " + (routesSize - 1) + " stop");
+                                    journeyStop.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            journeyStop.setText(resultantRoute);
+                        }
+
+                        bestFlightLoader.setVisibility(View.GONE);
+                        seperatorOne.setVisibility(View.VISIBLE);
+                        seperatortwo.setVisibility(View.VISIBLE);
+                        topDivider.setVisibility(View.VISIBLE);
+                        flightCostLbl.setVisibility(View.VISIBLE);
+
+                    }
+                });
+        nxtDayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String incBusTravelDate = FlightHelper.getFlightDateChanged(startDate, true);
+                viewModel.setSearchDate(incBusTravelDate);
+                performNextPrev(incBusTravelDate);
+            }
+        });
+
+        preDayBtn.setOnClickListener(new View.OnClickListener() {
+>>>>>>> Stashed changes
             @Override
             public void onChanged(Map<String, Object> data) {
                 List<Map<String,Object>> flightList = fetchFlightList(data);

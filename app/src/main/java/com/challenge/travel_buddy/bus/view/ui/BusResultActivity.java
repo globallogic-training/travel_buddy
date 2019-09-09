@@ -224,8 +224,7 @@ public class BusResultActivity extends AppCompatActivity {
                 String increamentedDate = Helper.getIncBusDate(travelDate, true);
                 viewModel.setSerchDate(increamentedDate);
                 performNextPrev(increamentedDate);
-                String dashedIncDate = Helper.getDashFromStringDate(increamentedDate);
-                Toast.makeText(BusResultActivity.this, "Results for : "+ dashedIncDate, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BusResultActivity.this, "Results for : "+ increamentedDate, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -236,11 +235,10 @@ public class BusResultActivity extends AppCompatActivity {
                     String decrementedDate = Helper.getIncBusDate(travelDate, false);
                     viewModel.setSerchDate(decrementedDate);
                     performNextPrev(decrementedDate);
-                    String dashedDecrDate = Helper.getDashFromStringDate(decrementedDate);
-                    Toast.makeText(BusResultActivity.this, "Results for : "+ dashedDecrDate, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusResultActivity.this, "Results for : "+ decrementedDate, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(BusResultActivity.this, "Sorry!.. No train results for past date.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusResultActivity.this, "Sorry!.. No bus for past date.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -15,14 +15,12 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.challenge.travel_buddy.MVVMApplication;
 import com.challenge.travel_buddy.R;
 import com.challenge.travel_buddy.bus.util.Utils;
-import com.challenge.travel_buddy.bus.view.ui.BusResultActivity;
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
 import com.challenge.travel_buddy.flight.helper.FlightHelper;
@@ -32,8 +30,6 @@ import com.challenge.travel_buddy.train.trainsearch.view.ui.OnSwipeTouchListener
 import com.challenge.travel_buddy.train.trainsearch.view.ui.helper.Helper;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -156,7 +152,7 @@ public class FlightListActivity extends AppCompatActivity {
                 , new Observer<Map<String, Object>>() {
                     @Override
                     public void onChanged(Map<String, Object> model) {
-
+                        List<Map<String,String>> tempRoutes = (List)model.get("route");
                         depFrom.setText((String) model.get("cityFrom"));
                         arrTo.setText((String) model.get("cityTo"));
                         flightCost.setText(""+ ( (int) model.get("price")));
@@ -164,20 +160,22 @@ public class FlightListActivity extends AppCompatActivity {
                         duration.setText("Dur: "+(String) model.get("fly_duration"));
                         depTime.setText("Dep: "+ Utils.epochToString( ""+model.get("aTime")));
                         arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
-                        if(((List)model.get("route")).size() == 2 ){
-                            List<Map<String,Object>> routeList = (List)model.get("route");
-                            if(((String)routeList.get(0).get("cityTo")).equals((String) routeList.get(1).get("cityFrom"))){
-                                journeyStop.setText(model.get("cityFrom")+" -> "+(String)routeList.get(0).get("cityTo")+" -> "+model.get("cityTo")+ "   "+((int)routeList.size()-1)+" stop");
-                                journeyStop.setVisibility(View.VISIBLE);
+
+                        int routesSize = tempRoutes.size();
+                        StringBuilder resultantRoute = new StringBuilder();
+                        for(int index = 0 ; index < routesSize; index++){
+                            Map<String, String> routeTemp = tempRoutes.get(index);
+                            if(index == 0){
+                                resultantRoute.append(routeTemp.get("cityFrom"));
                             }
-                        }else if(((List)model.get("route")).size() == 3){
-                            List<Map<String,Object>> routeList = (List)model.get("route");
-                            if(((String)routeList.get(0).get("cityTo")).equals((String) routeList.get(1).get("cityFrom"))
-                                    & ((String)routeList.get(1).get("cityTo")).equals((String) routeList.get(2).get("cityFrom"))){
-                                journeyStop.setText(model.get("cityFrom")+" -> "+(String)routeList.get(0).get("cityTo")+" -> "+
-                                        (String)routeList.get(1).get("cityTo")+" -> "+model.get("cityTo")+ "   "+((int)routeList.size()-1)+" stop");
-                                journeyStop.setVisibility(View.VISIBLE);
+                            resultantRoute.append(" -> "+routeTemp.get("cityTo"));
+                            if(index == (routesSize - 1)){
+                                if(routesSize != 1){
+                                    resultantRoute.append(" " + (routesSize - 1) + " stop");
+                                    journeyStop.setVisibility(View.VISIBLE);
+                                }
                             }
+                            journeyStop.setText(resultantRoute);
                         }
 
                         bestFlightLoader.setVisibility(View.GONE);

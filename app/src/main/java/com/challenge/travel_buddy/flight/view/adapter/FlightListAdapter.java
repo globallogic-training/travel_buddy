@@ -37,13 +37,38 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
     public void onBindViewHolder(@NonNull FlightItemVH holder, int position) {
         Map<String, Object> model = flightList.get(position);
         if(model != null){
+            List<Map<String,String>> tempRoutes = (List)model.get("route");
             holder.depFrom.setText((String) model.get("cityFrom"));
             holder.arrTo.setText((String) model.get("cityTo"));
             holder.flightCost.setText(""+ ( (int) model.get("price")));
             holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
             holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
+<<<<<<< Updated upstream
             holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
             holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
+=======
+            holder.depTime.setText("Dep: "+Utils.epochToString( ""+model.get("aTime")));
+            holder.arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
+            int routesSize = tempRoutes.size();
+            StringBuilder resultantRoute = new StringBuilder();
+            for(int index = 0 ; index < routesSize; index++){
+                Map<String, String> routeTemp = tempRoutes.get(index);
+                if(index == 0){
+                    resultantRoute.append(routeTemp.get("cityFrom"));
+                }
+                resultantRoute.append(" -> "+routeTemp.get("cityTo"));
+                if(index == (routesSize - 1)){
+                    if(routesSize == 1) {
+                        resultantRoute = new StringBuilder("");
+                    }else {
+                        resultantRoute.append(" " + (routesSize - 1) + " stop");
+                        holder.journeyStop.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                holder.journeyStop.setText(resultantRoute);
+            }
+>>>>>>> Stashed changes
         }
     }
 

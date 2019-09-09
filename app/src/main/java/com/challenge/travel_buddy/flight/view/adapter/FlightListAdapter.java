@@ -43,10 +43,6 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
             holder.flightCost.setText(""+ ( (int) model.get("price")));
             holder.airlinesName.setText(getAirlinesName((List<String>)model.get("airlines")));
             holder.duration.setText("Dur: "+(String) model.get("fly_duration"));
-<<<<<<< Updated upstream
-            holder.depTime.setText(Utils.epochToString( ""+model.get("aTime")));
-            holder.arrTime.setText(Utils.epochToString(""+model.get("dTime")));
-=======
             holder.depTime.setText("Dep: "+Utils.epochToString( ""+model.get("aTime")));
             holder.arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
             int routesSize = tempRoutes.size();
@@ -68,31 +64,12 @@ public class FlightListAdapter extends RecyclerView.Adapter<FlightItemVH> {
 
                 holder.journeyStop.setText(resultantRoute);
             }
->>>>>>> Stashed changes
         }
+
     }
 
     @Override
     public int getItemCount() {
         return flightList.size();
-    }
-
-    public static String getAirlinesName(List<String> airlines){
-
-        switch (airlines.get(0)){
-            case "G8":
-                return "Go Air";
-            case "AI":
-                return "Air India";
-            case "6E":
-                return "Indigo";
-            case "SG":
-                return "Singapore Airlines";
-            case "I5":
-                return "Air Asia";
-                default:
-                    return "Undefined";
-        }
-
     }
 }

@@ -48,7 +48,7 @@ public class BusListAdapter extends RecyclerView.Adapter<BusItemVH> {
         holder.busDepartureTime.setText(Utils.formatArrDepTime(model.getDt()));
         holder.bus_travel_hrs.setText(Utils.converMinsToHrs(model.getDuration()));
         if(model.getRt().getTotRt() != null)
-            holder.busRating.setText(  Math.floor(model.getRt().getTotRt() * 10) / 10 +"\u2605");
+            holder.busRating.setText(""+ Math.floor(model.getRt().getTotRt() * 10) / 10);
     }
 
     @Override

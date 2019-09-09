@@ -160,7 +160,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Fetching availability for upcoming days."
+                android:text="Please wait.. while we search best train for you in upcoming days."
                 android:textColor="@android:color/white" />
         </LinearLayout>
         <LinearLayout

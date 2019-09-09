@@ -41,7 +41,7 @@ public class Utils {
     }
 
     public static String epochToString(String time){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
         String date = sdf.format(new Date(Long.parseLong(time) * 1000l));
         return date;
     }

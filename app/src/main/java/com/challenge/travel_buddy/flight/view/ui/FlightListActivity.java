@@ -200,4 +200,10 @@ public class FlightListActivity extends AppCompatActivity {
         return newstr;
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

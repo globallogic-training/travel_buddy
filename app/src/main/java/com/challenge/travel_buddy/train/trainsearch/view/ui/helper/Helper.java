@@ -134,8 +134,8 @@ public class Helper {
     public static String getAvailDateString(int day, int month, int year){
         month+=1;
         String incDate = "";
-        incDate = (day < 10) ? incDate.concat("0" + day) : ("" + day);
-        incDate = (month < 10) ? incDate.concat("0" + month) : ("" + month);
+        incDate = (day < 10) ? incDate.concat("0" + day) : incDate.concat("" + day);
+        incDate = (month < 10) ? incDate.concat("0" + month) : incDate.concat("" + month);
         incDate = incDate.concat("" + year);
         return incDate;
     }

@@ -96,9 +96,9 @@ public class StationListActivity extends AppCompatActivity {
                 sb.append(s);
                 viewModel.searchStation(sb.toString()).observe(instance, new Observer<List<SearchStationModel>>() {
                     @Override
-                    public void onChanged(@Nullable List<SearchStationModel> project) {
-                        if(project != null) {
-                            adapter = new StationListAdapter(StationListActivity.this, project, isFrom);
+                    public void onChanged(@Nullable List<SearchStationModel> stations) {
+                        if(stations != null) {
+                            adapter = new StationListAdapter(StationListActivity.this, stations, isFrom);
                             stationRecyclerView.setAdapter(adapter);
                         }
                     }

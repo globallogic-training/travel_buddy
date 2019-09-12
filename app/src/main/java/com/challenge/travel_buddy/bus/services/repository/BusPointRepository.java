@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.challenge.travel_buddy.bus.di.BusPointActivityScope;
 import com.challenge.travel_buddy.bus.services.model.BusModel;
 import com.challenge.travel_buddy.bus.services.model.BusStationObj;
 import com.challenge.travel_buddy.bus.services.model.busresponse.BusSearchResponse;

@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.challenge.travel_buddy.bus.view.ui.SearchBusActivity;
 import com.challenge.travel_buddy.flight.view.ui.SearchAirportActivity;
+import com.challenge.travel_buddy.hybrid.view.ui.SearchHybridActivity;
 import com.challenge.travel_buddy.main.ViewPagerAdapter;
 import com.challenge.travel_buddy.train.view.ui.SearchActivity;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent trainIntent = new Intent(this,SearchActivity.class);
         final Intent busIntent = new Intent(this, SearchBusActivity.class);
         final Intent flightIntent = new Intent(this, SearchAirportActivity.class);
+        final Intent hybridIntent = new Intent(this, SearchHybridActivity.class);
 
         Button trainButton = (Button) findViewById(R.id.train_btn);
         trainButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(flightIntent);
+            }
+        });
+
+        Button hybridButton = (Button) findViewById(R.id.hybrid_btn);
+        hybridButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(hybridIntent);
             }
         });
 

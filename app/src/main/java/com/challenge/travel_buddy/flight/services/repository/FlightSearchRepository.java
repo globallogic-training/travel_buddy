@@ -1,13 +1,10 @@
 package com.challenge.travel_buddy.flight.services.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.challenge.travel_buddy.flight.services.model.Airport;
 import com.challenge.travel_buddy.flight.services.model.Datum;
-import com.challenge.travel_buddy.flight.services.model.Flight.Data;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParseException;
@@ -18,7 +15,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -26,12 +22,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 
 public class FlightSearchRepository {
 
     private AirportService airportService;
     private FlightService flightService;
+    private final MutableLiveData<Map<String, Object>> data = new MutableLiveData<>();
 
     @Inject
     public FlightSearchRepository(AirportService airportService, FlightService flightService) {
@@ -96,7 +92,7 @@ public class FlightSearchRepository {
     }
 
     public LiveData<Map<String, Object>> getFlights(String flyFrom, String to, String dateFrom, String dateTo){
-        final MutableLiveData<Map<String, Object>> data = new MutableLiveData<>();
+
 
         flightService.getFlights(flyFrom, to, dateFrom, dateTo)
                 .enqueue(new Callback<ResponseBody>() {

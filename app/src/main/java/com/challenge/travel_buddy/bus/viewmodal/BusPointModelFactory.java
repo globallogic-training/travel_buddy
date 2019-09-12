@@ -5,6 +5,7 @@ import android.util.ArrayMap;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.challenge.travel_buddy.bus.di.BusPointActivityScope;
 import com.challenge.travel_buddy.bus.di.ViewModelSubComponent;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.concurrent.Callable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton
+@BusPointActivityScope
 public class BusPointModelFactory implements ViewModelProvider.Factory {
     private final ArrayMap<Class, Callable<? extends ViewModel>> creators;
 

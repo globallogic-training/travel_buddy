@@ -69,10 +69,6 @@ public class StationListActivity extends AppCompatActivity {
         else
             stationSearchEditText.setHint("Destination");
 
-        //AppComponent component = DaggerAppComponent.builder().build();
-        //component.inject(this);
-        //AppComponent appComponent = DaggerAppComponent.builder().appModule(new AppModule(this.getApplication())).build();
-
         StationListActivityComponent stationListActivityComponent = DaggerStationListActivityComponent.builder().appComponent(((MVVMApplication) getApplication()).getAppComponent()).build();
         stationListActivityComponent.inject(this);
 

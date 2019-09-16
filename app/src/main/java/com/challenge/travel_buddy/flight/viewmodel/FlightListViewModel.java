@@ -33,13 +33,16 @@ public class FlightListViewModel extends AndroidViewModel {
     }
 
     public LiveData<Map<String, Object>> getFlightData(String flyFrom, String to, String dateFrom, String dateTo){
-            flightData =  flightSearchRepository.getFlights(flyFrom, to, dateFrom, dateTo);
+//        if(flightData == null)
+            flightData = flightSearchRepository.getFlights(flyFrom, to, dateFrom, dateTo);
+
         return flightData;
     }
 
     public LiveData<Map<String, Object>> getCheapestFlightData(String flyFrom, String to, String dateFrom, String dateTo){
-        flightData =  flightSearchRepository.getCheapestFlight(flyFrom, to, dateFrom, FlightHelper.getIncrementedDate(dateFrom));
-        return flightData;
+        if(cheapestFlight == null)
+            cheapestFlight = flightSearchRepository.getCheapestFlight(flyFrom, to, dateFrom, FlightHelper.getIncrementedDate(dateFrom));
+        return cheapestFlight;
     }
 
     public LiveData<Map<String, Object>> getSearchProviders(String source, String destination, String startDate, String endDate){

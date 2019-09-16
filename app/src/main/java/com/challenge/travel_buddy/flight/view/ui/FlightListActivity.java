@@ -152,37 +152,39 @@ public class FlightListActivity extends AppCompatActivity {
                 , new Observer<Map<String, Object>>() {
                     @Override
                     public void onChanged(Map<String, Object> model) {
-                        List<Map<String,String>> tempRoutes = (List)model.get("route");
-                        depFrom.setText((String) model.get("cityFrom"));
-                        arrTo.setText((String) model.get("cityTo"));
-                        flightCost.setText(""+ ( (int) model.get("price")));
-                        airlinesName.setText(FlightHelper.getAirlinesName((List<String>)model.get("airlines")));
-                        duration.setText("Dur: "+(String) model.get("fly_duration"));
-                        depTime.setText("Dep: "+ Utils.epochToString( ""+model.get("aTime")));
-                        arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
+                        if(model != null){
+                            List<Map<String,String>> tempRoutes = (List)model.get("route");
+                            depFrom.setText((String) model.get("cityFrom"));
+                            arrTo.setText((String) model.get("cityTo"));
+                            flightCost.setText(""+ ( (int) model.get("price")));
+                            airlinesName.setText(FlightHelper.getAirlinesName((List<String>)model.get("airlines")));
+                            duration.setText("Dur: "+(String) model.get("fly_duration"));
+                            depTime.setText("Dep: "+ Utils.epochToString( ""+model.get("aTime")));
+                            arrTime.setText("Arr: "+Utils.epochToString(""+model.get("dTime")));
 
-                        int routesSize = tempRoutes.size();
-                        StringBuilder resultantRoute = new StringBuilder();
-                        for(int index = 0 ; index < routesSize; index++){
-                            Map<String, String> routeTemp = tempRoutes.get(index);
-                            if(index == 0){
-                                resultantRoute.append(routeTemp.get("cityFrom"));
-                            }
-                            resultantRoute.append(" -> "+routeTemp.get("cityTo"));
-                            if(index == (routesSize - 1)){
-                                if(routesSize != 1){
-                                    resultantRoute.append(" " + (routesSize - 1) + " stop");
-                                    journeyStop.setVisibility(View.VISIBLE);
+                            int routesSize = tempRoutes.size();
+                            StringBuilder resultantRoute = new StringBuilder();
+                            for(int index = 0 ; index < routesSize; index++){
+                                Map<String, String> routeTemp = tempRoutes.get(index);
+                                if(index == 0){
+                                    resultantRoute.append(routeTemp.get("cityFrom"));
                                 }
+                                resultantRoute.append(" -> "+routeTemp.get("cityTo"));
+                                if(index == (routesSize - 1)){
+                                    if(routesSize != 1){
+                                        resultantRoute.append(" " + (routesSize - 1) + " stop");
+                                        journeyStop.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                journeyStop.setText(resultantRoute);
                             }
-                            journeyStop.setText(resultantRoute);
-                        }
 
-                        bestFlightLoader.setVisibility(View.GONE);
-                        seperatorOne.setVisibility(View.VISIBLE);
-                        seperatortwo.setVisibility(View.VISIBLE);
-                        topDivider.setVisibility(View.VISIBLE);
-                        flightCostLbl.setVisibility(View.VISIBLE);
+                            bestFlightLoader.setVisibility(View.GONE);
+                            seperatorOne.setVisibility(View.VISIBLE);
+                            seperatortwo.setVisibility(View.VISIBLE);
+                            topDivider.setVisibility(View.VISIBLE);
+                            flightCostLbl.setVisibility(View.VISIBLE);
+                        }
 
                     }
                 });

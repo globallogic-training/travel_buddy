@@ -5,6 +5,7 @@ import android.util.ArrayMap;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.challenge.travel_buddy.flight.di.AirportActivityScope;
 import com.challenge.travel_buddy.flight.di.ViewModelSubComponent;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.concurrent.Callable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton
+@AirportActivityScope
 public class AiportModelFactory implements ViewModelProvider.Factory {
     private final ArrayMap<Class, Callable<? extends ViewModel>> creators;
 

@@ -281,7 +281,6 @@ public class TrainSearch extends AppCompatActivity {
                     }
 
                 });
-        System.out.println("In Activity");
 
         next_day_btn.setOnClickListener(new View.OnClickListener() {
             @Override

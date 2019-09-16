@@ -19,7 +19,7 @@ import com.challenge.travel_buddy.R;
 
 import com.challenge.travel_buddy.flight.di.AirportActivityComponent;
 import com.challenge.travel_buddy.flight.di.DaggerAirportActivityComponent;
-import com.challenge.travel_buddy.flight.services.model.Datum;
+import com.challenge.travel_buddy.flight.services.model.Airport;
 import com.challenge.travel_buddy.flight.view.adapter.AirportListAdapter;
 import com.challenge.travel_buddy.flight.viewmodel.AirportViewModel;
 
@@ -86,9 +86,9 @@ public class AirportListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final StringBuilder sb = new StringBuilder(s.length());
                 sb.append(s);
-                viewModel.searchAirport(sb.toString()).observe(instance, new Observer<List<Datum>>() {
+                viewModel.searchAirport(sb.toString()).observe(instance, new Observer<List<Airport>>() {
                     @Override
-                    public void onChanged(@Nullable List<Datum> airport) {
+                    public void onChanged(@Nullable List<Airport> airport) {
                         if(airport != null) {
                             adapter = new AirportListAdapter(AirportListActivity.this, airport, isFrom);
                             stationRecyclerView.setAdapter(adapter);

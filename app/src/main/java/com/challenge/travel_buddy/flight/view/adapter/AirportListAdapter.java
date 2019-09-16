@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.challenge.travel_buddy.R;
-import com.challenge.travel_buddy.flight.services.model.Datum;
+import com.challenge.travel_buddy.flight.services.model.Airport;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ public class AirportListAdapter extends RecyclerView.Adapter<AirportViewHolder> 
 
     private final boolean mIsFrom;
     Context mContext;
-    List<Datum> mStations;
+    List<Airport> mStations;
 
-    public AirportListAdapter(Context context, List<Datum> airportList, boolean isFrom) {
+    public AirportListAdapter(Context context, List<Airport> airportList, boolean isFrom) {
         mContext = context;
         mStations = airportList;
         mIsFrom = isFrom;
@@ -35,9 +35,9 @@ public class AirportListAdapter extends RecyclerView.Adapter<AirportViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull AirportViewHolder stationViewHolder, int position) {
-        Datum model = mStations.get(position);
-        stationViewHolder.cityName.setText(model.getAirportCode() + " - "+ model.getCityName()+","+model.getCountryName());
-        stationViewHolder.airportName.setText(model.getAirportName());
+        Airport model = mStations.get(position);
+        stationViewHolder.cityName.setText(model.getIata()+ " - "+model.getCt().getN()+", "+model.getXtr().getCc());
+        stationViewHolder.airportName.setText(model.getN());
     }
 
     @Override

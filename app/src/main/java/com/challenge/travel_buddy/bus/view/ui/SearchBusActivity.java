@@ -95,8 +95,8 @@ public class SearchBusActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(data != null){
             super.onActivityResult(requestCode, resultCode, data);
-//            fromStationValue = (TextView) findViewById(R.id.fromStationValue);
-//            toStationValue = (TextView) findViewById(R.id.toStationValue);
+//            fromStationValue = (TextView) findViewById(Airport.id.fromStationValue);
+//            toStationValue = (TextView) findViewById(Airport.id.toStationValue);
             String fromStationText = data.getStringExtra("station");
             boolean isFrom = data.getBooleanExtra("isFrom", false);
             if(isFrom){

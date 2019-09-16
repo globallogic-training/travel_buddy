@@ -1,6 +1,6 @@
 package com.challenge.travel_buddy.flight.services.repository;
 
-import com.challenge.travel_buddy.flight.services.model.Airport;
+import com.challenge.travel_buddy.flight.services.model.AirportResponse;
 import com.challenge.travel_buddy.flight.services.model.Flight.Data;
 
 import okhttp3.ResponseBody;
@@ -11,9 +11,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AirportService {
-    @GET("/action/content/city?searchFor=airportSuggestions&nearByAirport=true")
-    Call<Airport> getAirport(
-            @Query("value") String value
+    @GET("/api/v1/flights_search/find_node_by_name_v2/?limit=10")
+    Call<AirportResponse> getAirport(
+            @Query("search_query") String value
     );
 
     @Headers({"apikey:ixiweb!2$"})

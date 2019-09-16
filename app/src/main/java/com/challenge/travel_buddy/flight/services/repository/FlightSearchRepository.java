@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.challenge.travel_buddy.flight.services.model.Airport;
-import com.challenge.travel_buddy.flight.services.model.Datum;
+import com.challenge.travel_buddy.flight.services.model.AirportResponse;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParseException;
@@ -35,17 +35,17 @@ public class FlightSearchRepository {
         this.flightService = flightService;
     }
 
-    public LiveData<List<Datum>> getAirportLists(String value){
-        final MutableLiveData<List<Datum>> data = new MutableLiveData<>();
+    public LiveData<List<Airport>> getAirportLists(String value){
+        final MutableLiveData<List<Airport>> data = new MutableLiveData<>();
         airportService.getAirport(value)
-                .enqueue(new Callback<Airport>() {
+                .enqueue(new Callback<AirportResponse>() {
                     @Override
-                    public void onResponse(Call<Airport> call, Response<Airport> response) {
-                        data.setValue(response.body().getData());
+                    public void onResponse(Call<AirportResponse> call, Response<AirportResponse> response) {
+                        data.setValue(response.body().getData().getAirport());
                     }
 
                     @Override
-                    public void onFailure(Call<Airport> call, Throwable t) {
+                    public void onFailure(Call<AirportResponse> call, Throwable t) {
                         data.setValue(null);
                     }
                 });
